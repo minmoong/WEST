@@ -101,7 +101,11 @@
 		<SidebarWrapper class="bg-white p-0">
 			<div class="flex mb-5">
 				<Avatar src={defaultProfileImg} class="mx-3" />
-				<div class="self-center text-lg font-bold break-all dark:text-white">
+				<div
+					class="self-center {user.username.length >= 8
+						? 'text-base'
+						: 'text-lg'} font-bold break-all dark:text-white"
+				>
 					{user.username}
 				</div>
 			</div>

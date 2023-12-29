@@ -80,7 +80,7 @@
 	<title>계정 등록</title>
 </svelte:head>
 
-<div class="flex flex-col h-full justify-center mx-auto max-w-xs">
+<div class="w-full h-full flex flex-col max-w-xs justify-center mx-auto">
 	<div class="flex items-center mb-6 mx-auto">
 		<img src={logo} class="mr-3 h-7 md:h-8" alt="로고" />
 		<span class="text-xl font-bold text-primary-500 md:text-2xl pr-9">SDJ-IN</span>

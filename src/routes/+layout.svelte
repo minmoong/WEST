@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.pcss';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { Sidebar, Darkmode, Snowflake } from '$lib/components';
+	import { Sidebar, Snowflake /* Darkmode */ } from '$lib/components';
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
 	import type { PageData } from './$types';
 
@@ -24,10 +24,10 @@
 
 <SvelteToast />
 <ProgressBar class="text-primary-400 dark:text-primary-500" zIndex={100} />
-<Darkmode />
+<!-- <Darkmode /> -->
 <Snowflake />
 
-<div class="p-5 {user ? 'lg:ml-64' : ''}">
+<div class="h-full p-5 {user ? 'lg:ml-64' : ''}">
 	{#if user}
 		<Sidebar {fullScreen} {user} />
 	{/if}
