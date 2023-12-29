@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Button, Input, Spinner } from 'flowbite-svelte';
 	import { UserSolid, LockSolid } from 'flowbite-svelte-icons';
+	import { InfoCircleSolid } from 'flowbite-svelte-icons';
 	import { toastError } from '$lib/utils/toast';
 	import logo from '$lib/assets/favicon.png';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -68,6 +69,16 @@
 					href="/user-auth/register"
 					class="font-medium text-primary-400 hover:underline">계정 등록</a
 				>
+			</div>
+			<div class="flex justify-center items-center">
+				<InfoCircleSolid size="sm" class="text-primary-400 mr-2" />
+				<a
+					href="https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4"
+					target="_blank"
+					class="text-sm font-medium text-primary-400 hover:underline"
+				>
+					사이트 소개
+				</a>
 			</div>
 		</form>
 	</div>

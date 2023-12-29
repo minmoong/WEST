@@ -65,9 +65,12 @@
 		// 기타 메뉴
 		others: [
 			{
-				href: '/protected/site-info',
-				label: '사이트 정보',
-				icon: InfoCircleOutline
+				href: 'https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4',
+				label: '사이트 소개',
+				icon: InfoCircleOutline,
+				linkOptions: {
+					target: '_blank'
+				}
 			}
 		]
 	};
@@ -135,8 +138,8 @@
 			</SidebarGroup>
 			<!-- 기타 메뉴 -->
 			<SidebarGroup border>
-				{#each routes.others as { href, label, icon }}
-					<SidebarItem {href} {label}>
+				{#each routes.others as { href, label, icon, linkOptions }}
+					<SidebarItem {href} {label} {...linkOptions}>
 						<svelte:fragment slot="icon">
 							<svelte:component this={icon} class="text-gray-500 dark:text-white" />
 						</svelte:fragment>
