@@ -10,9 +10,13 @@ export const checkIsEmail = (string: string) => {
 };
 
 export const checkRoleFromEmail = (email: string): Role => {
-	const studentEmailRegex = /^[0-9]{2}sdj[0-9]{3}@sdjhs\.djsch\.kr$/;
+	const regex = [
+		/^[0-9]{2}sdj[0-9]{3}@sdjhs\.djsch\.kr$/, // 23년도 기준 1학년
+		/sdj[0-9]{3}@sdjhs\.djsch\.kr$/, // 23년도 기준 2학년
+		/sdjgo[0-9]{8}@sdjhs\.djsch\.kr$/ // 23년도 기준 3학년
+	];
 
-	if (studentEmailRegex.test(email)) {
+	if (regex[0].test(email) || regex[1].test(email) || regex[2].test(email)) {
 		return 'STUDENT';
 	} else {
 		return 'TEACHER';
