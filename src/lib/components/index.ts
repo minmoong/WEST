@@ -6,3 +6,4 @@ export { default as Snowflake } from './Snowflake.svelte';
 export { default as Timetable } from './timetable/Timetable.svelte';
 export { default as TimetableToday } from './timetable/TimetableToday.svelte';
 export { default as GlassContainer } from './GlassContainer.svelte';
+export { default as UserRoleBadge } from './UserRoleBadge.svelte';
