@@ -17,6 +17,7 @@
 		ArrowRightToBracketOutline,
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
+	import UserRoleBadge from './UserRoleBadge.svelte';
 	import defaultProfileImg from '$lib/assets/하니.png';
 	import type { User } from '@prisma/client';
 
@@ -99,14 +100,17 @@
 			<CloseButton on:click={() => (hidden = true)} class="text-gray-500 m-0 ml-auto" />
 		</div>
 		<SidebarWrapper class="bg-white p-0">
-			<div class="flex mb-5">
-				<Avatar src={defaultProfileImg} class="mx-3" />
-				<div
-					class="self-center {user.username.length >= 8
-						? 'text-base'
-						: 'text-lg'} font-bold break-all dark:text-white"
-				>
-					{user.username}
+			<div class="flex mb-5 items-center">
+				<Avatar src={defaultProfileImg} class="mr-3" />
+				<div>
+					<div
+						class="self-center {user.username.length >= 8
+							? 'text-base'
+							: 'text-lg'} font-bold break-all dark:text-white"
+					>
+						{user.username}
+					</div>
+					<UserRoleBadge userRole={user.role} />
 				</div>
 			</div>
 			<!-- 페이지 메뉴 -->
