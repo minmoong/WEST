@@ -31,4 +31,5 @@ enum Role {
   STUDENT
   TEACHER
   STUDENT_COUNCIL
+  ADMIN
 }

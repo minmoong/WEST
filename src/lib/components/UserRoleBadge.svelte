@@ -6,9 +6,11 @@
 </script>
 
 {#if userRole === 'STUDENT'}
-	<Badge color="green" rounded>학생</Badge>
+	<Badge color="primary" rounded>학생</Badge>
 {:else if userRole === 'TEACHER'}
-	<Badge color="green" rounded>선생님</Badge>
+	<Badge color="primary" rounded>선생님</Badge>
 {:else if userRole === 'STUDENT_COUNCIL'}
 	<Badge color="yellow" rounded>학생회</Badge>
+{:else if userRole === 'ADMIN'}
+	<Badge color="red" rounded>운영진</Badge>
 {/if}
