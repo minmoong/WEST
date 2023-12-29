@@ -32,11 +32,19 @@
 		{/each}
 	</div>
 	<div>
-		<a
-			href="http://xn--s39aj90b0nb2xw6xh.kr/"
-			target="_blank"
-			class="font-medium text-primary-400 underline">컴시간 시간표</a
-		>
+		{#if role === '학생'}
+			<a
+				href="http://xn--s39aj90b0nb2xw6xh.kr/"
+				target="_blank"
+				class="font-medium text-primary-400 underline">컴시간학생</a
+			>
+		{:else if role === '선생님'}
+			<a
+				href="http://xn--s39aqy283b66bj2x.kr/"
+				target="_blank"
+				class="font-medium text-primary-400 underline">컴시간교사</a
+			>
+		{/if}
 	</div>
 </div>
 
