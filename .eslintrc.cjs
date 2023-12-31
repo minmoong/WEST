@@ -8,7 +8,7 @@ module.exports = {
 		'prettier'
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
+	plugins: ['@typescript-eslint', 'import'],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -27,5 +27,28 @@ module.exports = {
 				parser: '@typescript-eslint/parser'
 			}
 		}
-	]
+	],
+	rules: {
+		'import/order': [
+			'error',
+			{
+				groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+				'newlines-between': 'never',
+				pathGroups: [
+					{
+						pattern: '$app/**',
+						group: 'builtin'
+					},
+					{
+						pattern: '$env/**',
+						group: 'builtin'
+					},
+					{
+						pattern: '$lib/**',
+						group: 'internal'
+					}
+				]
+			}
+		]
+	}
 };
