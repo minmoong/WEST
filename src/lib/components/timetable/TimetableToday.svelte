@@ -4,7 +4,6 @@
 
 	export let timetable;
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let timetableData: any[] = Object.values(timetable[new Date().getDay()] ?? {});
 	let activePeriod = getActivePeriod();
 
