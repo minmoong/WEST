@@ -88,13 +88,11 @@
 		font-size: 14px;
 		text-align: center;
 		background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
 		border: 1px solid rgba(255, 255, 255, 0.18);
 	}
 
 	.timetable-item.changed {
-		background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(96, 165, 250, 0.1));
+		background: linear-gradient(135deg, rgba(96, 165, 250, 0.4), rgba(96, 165, 250, 0.1));
 	}
 
 	.timetable-item.active {
