@@ -1,12 +1,12 @@
+import { EMAIL_SENDER_PW, JWT_SECRET_KEY } from '$env/static/private';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import { prisma } from '$lib/server/db/prisma';
-import { EMAIL_SENDER_PW, JWT_SECRET_KEY } from '$env/static/private';
-import type { Cookies } from '@sveltejs/kit';
-import { getRandomNumber } from './tools';
 import { render } from 'svelte-email';
+import { prisma } from '$lib/server/prisma';
 import { VerifyEmail } from '$lib/components';
+import { getRandomNumber } from './tools';
+import type { Cookies } from '@sveltejs/kit';
 import type { Role } from '@prisma/client';
 
 /**

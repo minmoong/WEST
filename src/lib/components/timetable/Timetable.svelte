@@ -2,6 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import { getActivePeriod } from './get-active-period';
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let timetable: { [weekday: number]: { [period: number]: any } };
 	export let role: '학생' | '선생님';
 	export let periodTime: string[];
@@ -18,7 +19,7 @@
 	});
 </script>
 
-<div class="text-xl font-bold text-primary-400 mb-3">{role} 시간표</div>
+<div class="mb-3 text-xl font-bold text-primary-400">{role} 시간표</div>
 <div class="timetable">
 	<div class="timetable-table">
 		<div class="timetable-column">

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import MealItem from './MealItem.svelte';
 	import { getRandomNumber } from '$lib/utils/tools';
+	import MealItem from './MealItem.svelte';
 
 	export let meal;
 
@@ -14,7 +14,7 @@
 </script>
 
 <div class="w-56 break-all">
-	<div class="text-xl font-bold text-primary-400 mb-3">
+	<div class="mb-3 text-xl font-bold text-primary-400">
 		오늘의 {keywords[keywordIndex]}
 		{emojis[emojiIndex]}
 	</div>

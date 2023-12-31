@@ -1,5 +1,5 @@
 import { fail, type Actions, redirect } from '@sveltejs/kit';
-import { prisma } from '$lib/server/db/prisma';
+import { prisma } from '$lib/server/prisma';
 import { register, sendPasscodeToEmail } from '$lib/utils/user-auth';
 import { checkIsEmail, checkRoleFromEmail } from '$lib/utils/tools';
 

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '../app.pcss';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { Sidebar, Snowflake /* Darkmode */ } from '$lib/components';
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
+	import { Sidebar, Snowflake /* Darkmode */ } from '$lib/components';
 	import type { PageData } from './$types';
 
 	export let data: PageData;

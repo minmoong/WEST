@@ -1,4 +1,4 @@
-<div class="glass w-fit h-fit p-3">
+<div class="glass h-fit w-fit p-3">
 	<slot />
 </div>
 

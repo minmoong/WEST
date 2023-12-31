@@ -9,7 +9,7 @@
 		{#each meal as m}
 			<div>{m}</div>
 		{:else}
-			<div class="text-center font-bold my-7">오늘은 {mealType}이 없습니다.</div>
+			<div class="text-center my-7 font-bold">오늘은 {mealType}이 없습니다.</div>
 		{/each}
 	</div>
 </div>

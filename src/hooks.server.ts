@@ -1,18 +1,24 @@
-import { authenticateUser } from '$lib/server/authenticate-user';
-import { error, redirect, type Handle } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+import { getUserFromCookie } from '$lib/server/auth';
 
-export const handle: Handle = async ({ event, resolve }) => {
-	const pathname = event.url.pathname;
-
+export const handle = async ({ event, resolve }) => {
+	// 유저 인증
 	try {
-		event.locals.user = await authenticateUser(event);
+		const user = await getUserFromCookie(event.cookies);
+
+		if (user) {
+			event.locals.user = user;
+		}
 	} catch (err) {
 		console.error(err);
 		throw error(500, {
 			message:
-				'해당 계정을 인증하는 과정에 실패하였습니다. 문제가 지속될 경우 쿠키를 삭제하고 다시 접속해주세요.'
+				'해당 계정을 인증하는 과정에 실패하였습니다. 문제가 지속될 경우 사이트 쿠키를 삭제하고 다시 접속해주세요.'
 		});
 	}
+
+	// 라우트 프로텍팅
+	const pathname = event.url.pathname;
 
 	if (pathname.startsWith('/protected')) {
 		if (!event.locals.user) {

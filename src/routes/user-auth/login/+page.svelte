@@ -29,13 +29,13 @@
 	<title>로그인</title>
 </svelte:head>
 
-<div class="w-full h-full flex flex-col max-w-xs justify-center mx-auto">
-	<div class="flex items-center mb-6 mx-auto">
+<div class="mx-auto flex h-full w-full max-w-xs flex-col justify-center">
+	<div class="mx-auto mb-6 flex items-center">
 		<img src={logo} class="mr-3 h-7 md:h-8" alt="로고" />
-		<span class="text-xl font-bold text-primary-500 md:text-2xl pr-9">SDJ-IN</span>
+		<span class="pr-9 text-xl font-bold text-primary-500 md:text-2xl">SDJ-IN</span>
 	</div>
 	<div class="w-full space-y-4">
-		<h1 class="text-lg md:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+		<h1 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white md:text-xl">
 			SDJ-IN 계정으로 로그인
 		</h1>
 		<form
@@ -56,7 +56,7 @@
 				disabled={loggingIn}
 				class="{loggingIn
 					? 'cursor-default'
-					: 'cursor-pointer'} w-full text-white bg-primary-500 hover:bg-primary-600"
+					: 'cursor-pointer'} w-full bg-primary-500 text-white hover:bg-primary-600"
 			>
 				{#if loggingIn}
 					<Spinner size="5" bg="dark:text-white" />
@@ -64,14 +64,14 @@
 					로그인
 				{/if}
 			</Button>
-			<div class="text-sm text-center font-light text-gray-500 dark:text-white">
+			<div class="text-center text-sm font-light text-gray-500 dark:text-white">
 				아직 계정을 등록하지 않으셨나요? <a
 					href="/user-auth/register"
 					class="font-medium text-primary-400 hover:underline">계정 등록</a
 				>
 			</div>
-			<div class="flex justify-center items-center">
-				<InfoCircleSolid size="sm" class="text-primary-400 mr-2" />
+			<div class="flex items-center justify-center">
+				<InfoCircleSolid size="sm" class="mr-2 text-primary-400" />
 				<a
 					href="https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4"
 					target="_blank"

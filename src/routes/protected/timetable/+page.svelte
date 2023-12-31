@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { Select } from 'flowbite-svelte';
 	import { Timetable } from '$lib/components';
 	import { Comcigan, ComciganTeacher } from '$lib/utils/comcigan';
 	import GlassContainer from '$lib/components/GlassContainer.svelte';
-	import { Select } from 'flowbite-svelte';
 	import type { PageData } from './$types';
-	import { browser } from '$app/environment';
 
 	export let data: PageData;
 
@@ -26,6 +26,7 @@
 	$: [selectedGrade, selectedClass] = selectedGrdCls.split('-');
 	$: timetable = Comcigan.parse(data.comcigan.stData, Number(selectedGrade), Number(selectedClass));
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let grdClsItems: any[] = [];
 
 	let stData = data.comcigan.stData;
@@ -39,6 +40,7 @@
 	// 선생님 시간표 파트
 	$: tTimetable = ComciganTeacher.parse(data.comcigan.thData, selectedThIndex);
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let thItems: any[] = [];
 
 	let thData = data.comcigan.thData;

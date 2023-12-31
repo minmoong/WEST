@@ -1,5 +1,5 @@
-import { login } from '$lib/utils/user-auth';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { login } from '$lib/utils/user-auth';
 
 export const actions: Actions = {
 	default: async (event) => {
