@@ -1,3 +1,7 @@
+<!--
+	@component
+	눈 내리는 효과를 페이지에 씌워주는 레이어입니다.
+-->
 <script lang="ts">
 	import { onMount } from 'svelte';
 
@@ -48,26 +52,18 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="snowscreen" bind:this={container}></div>
+<div
+	class="pointer-events-none fixed left-0 top-0 z-[60] h-full w-full overflow-hidden"
+	bind:this={container}
+/>
 
 <style>
 	:global(.snowflake) {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background-color: white;
 		position: absolute;
 		top: -8px;
-	}
-
-	.snowscreen {
-		width: 100%;
-		height: 100%;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 60;
-		overflow: hidden;
-		pointer-events: none;
+		width: 8px;
+		height: 8px;
+		background-color: white;
+		border-radius: 50%;
 	}
 </style>

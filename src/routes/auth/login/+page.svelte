@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button, Input, Spinner } from 'flowbite-svelte';
-	import { UserSolid, LockSolid } from 'flowbite-svelte-icons';
-	import { InfoCircleSolid } from 'flowbite-svelte-icons';
-	import { toastError } from '$lib/utils/toast';
+	import { UserSolid, LockSolid, InfoCircleSolid } from 'flowbite-svelte-icons';
+	import { toastError, toastSuccess } from '$lib/utils/toast';
 	import logo from '$lib/assets/favicon.png';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
@@ -18,6 +17,8 @@
 
 			if (result.type === 'failure' && result.data) {
 				toastError(result.data.message);
+			} else if (result.type === 'redirect') {
+				toastSuccess('로그인 성공!');
 			}
 
 			loggingIn = false;
@@ -29,13 +30,13 @@
 	<title>로그인</title>
 </svelte:head>
 
-<div class="w-full h-full flex flex-col max-w-xs justify-center mx-auto">
-	<div class="flex items-center mb-6 mx-auto">
+<div class="flex h-full flex-col items-center justify-center">
+	<div class="mb-6 flex">
 		<img src={logo} class="mr-3 h-7 md:h-8" alt="로고" />
-		<span class="text-xl font-bold text-primary-500 md:text-2xl pr-9">SDJ-IN</span>
+		<div class="pr-7 text-xl font-bold text-primary-500 md:text-2xl">SDJ-IN</div>
 	</div>
-	<div class="w-full space-y-4">
-		<h1 class="text-lg md:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+	<div class="w-full max-w-xs space-y-4">
+		<h1 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white md:text-xl">
 			SDJ-IN 계정으로 로그인
 		</h1>
 		<form
@@ -56,7 +57,7 @@
 				disabled={loggingIn}
 				class="{loggingIn
 					? 'cursor-default'
-					: 'cursor-pointer'} w-full text-white bg-primary-500 hover:bg-primary-600"
+					: 'cursor-pointer'} w-full bg-primary-500 text-white hover:bg-primary-600"
 			>
 				{#if loggingIn}
 					<Spinner size="5" bg="dark:text-white" />
@@ -64,22 +65,22 @@
 					로그인
 				{/if}
 			</Button>
-			<div class="text-sm text-center font-light text-gray-500 dark:text-white">
-				아직 계정을 등록하지 않으셨나요? <a
-					href="/user-auth/register"
-					class="font-medium text-primary-400 hover:underline">계정 등록</a
-				>
-			</div>
-			<div class="flex justify-center items-center">
-				<InfoCircleSolid size="sm" class="text-primary-400 mr-2" />
-				<a
-					href="https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4"
-					target="_blank"
-					class="text-sm font-medium text-primary-400 hover:underline"
-				>
-					사이트 소개
-				</a>
-			</div>
 		</form>
+		<div class="text-center text-sm font-light text-gray-500 dark:text-white">
+			아직 계정을 등록하지 않으셨나요? <a
+				href="/auth/register"
+				class="font-medium text-primary-400 hover:underline">계정 등록</a
+			>
+		</div>
+		<div class="flex items-center justify-center">
+			<InfoCircleSolid size="sm" class="mr-2 text-primary-400" />
+			<a
+				href="https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4"
+				target="_blank"
+				class="text-sm font-medium text-primary-400 hover:underline"
+			>
+				사이트 소개
+			</a>
+		</div>
 	</div>
 </div>

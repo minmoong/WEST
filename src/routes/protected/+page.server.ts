@@ -1,4 +1,4 @@
-import { ComciganStudent, ComciganTeacher } from '$lib/utils/comcigan';
+import { ComciganStudent } from '$lib/utils/comcigan';
 import { getMeal } from '$lib/utils/neis';
 
 export const load = async () => {
@@ -7,14 +7,10 @@ export const load = async () => {
 	const comciganStudent = new ComciganStudent();
 	await comciganStudent.init();
 
-	const comciganTeacher = new ComciganTeacher();
-	await comciganTeacher.init();
-
 	return {
 		meal,
 		timetable: {
-			stData: comciganStudent.data,
-			thData: comciganTeacher.data
+			stData: comciganStudent.data
 		}
 	};
 };

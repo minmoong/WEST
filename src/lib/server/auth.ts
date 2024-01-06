@@ -1,12 +1,13 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
-import { prisma } from '$lib/server/db/prisma';
 import { EMAIL_SENDER_PW, JWT_SECRET_KEY } from '$env/static/private';
-import type { Cookies } from '@sveltejs/kit';
-import { getRandomNumber } from './tools';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 import { render } from 'svelte-email';
-import { VerifyEmail } from '$lib/components';
+import { getRandomNumberInRange } from '$lib/utils/tools';
+import { PasscodeEmailTemplate } from '$lib/components';
+import { prisma } from './prisma';
+import type { Cookies } from '@sveltejs/kit';
+import type { JwtPayload } from 'jsonwebtoken';
 import type { Role } from '@prisma/client';
 
 /**
@@ -36,9 +37,7 @@ export const register = async (user: {
 }) => {
 	// 아이디 중복 검사
 	let count = await prisma.user.count({
-		where: {
-			username: user.username
-		}
+		where: { username: user.username }
 	});
 
 	if (count !== 0) {
@@ -47,9 +46,7 @@ export const register = async (user: {
 
 	// 이메일 중복 검사
 	count = await prisma.user.count({
-		where: {
-			email: user.email
-		}
+		where: { email: user.email }
 	});
 
 	if (count !== 0) {
@@ -76,9 +73,7 @@ export const register = async (user: {
  */
 export const login = async (username: string, password: string) => {
 	const user = await prisma.user.findUnique({
-		where: {
-			username
-		}
+		where: { username }
 	});
 
 	if (!user) {
@@ -97,16 +92,33 @@ export const login = async (username: string, password: string) => {
 };
 
 /**
- * 로그인과 관련된 쿠키를 삭제하여 로그아웃합니다.
+ * 토큰이 담긴 쿠키를 삭제하여 로그아웃합니다.
  */
 export const logout = (cookies: Cookies) => {
 	cookies.delete('Authorization', { path: '/' });
 };
 
 /**
+ * 쿠키의 토큰으로 유저가 유효한지 확인하고 해당 유저를 반환합니다.
+ */
+export const authUser = async (cookies: Cookies) => {
+	const token = cookies.get('Authorization')?.split(' ')[1];
+
+	if (!token) return null;
+
+	const payload = jwt.verify(token, JWT_SECRET_KEY) as JwtPayload;
+
+	const user = await prisma.user.findUnique({
+		where: { username: payload.username }
+	});
+
+	return user;
+};
+
+/**
  * 회원가입시 유저가 입력한 이메일로 인증 코드를 발송합니다.
  */
-export const sendPasscodeToEmail = async (email: string) => {
+export const sendPasscode = async (email: string) => {
 	const transporter = nodemailer.createTransport({
 		service: 'gmail',
 		auth: {
@@ -115,16 +127,16 @@ export const sendPasscodeToEmail = async (email: string) => {
 		}
 	});
 
-	const passcode = String(getRandomNumber(1000, 9999));
+	const passcode = String(getRandomNumberInRange(1000, 9999));
 
-	await prisma.verifyEmailPasscode.upsert({
+	await prisma.passcode.upsert({
 		where: { email },
 		create: { email, passcode },
 		update: { email, passcode }
 	});
 
 	const emailHtml = render({
-		template: VerifyEmail,
+		template: PasscodeEmailTemplate,
 		props: { passcode }
 	});
 

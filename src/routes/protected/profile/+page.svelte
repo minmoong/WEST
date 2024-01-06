@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>프로필 - {data.user?.username}</title>
+	<title>{data.user.username} • 프로필</title>
 </svelte:head>
 
-<h1>프로필 - {data.user?.username}</h1>
+<div>{data.user.username}</div>

@@ -1,9 +1,17 @@
+<!--
+	@component
+	홈 페이지에서 보여주는 오늘 우리반 시간표 컴포넌트입니다.
+-->
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { getActivePeriod } from './get-active-period';
+	import { ComciganStudent } from '$lib/utils/comcigan';
+	import { getActivePeriod } from '$lib/utils/tools';
 
-	export let timetable;
+	export let data;
+	export let grd;
+	export let cls;
 
+	let timetable = ComciganStudent.parse(data, grd, cls);
 	let timetableData: any[] = Object.values(timetable[new Date().getDay()] ?? {});
 	let activePeriod = getActivePeriod();
 
@@ -17,8 +25,8 @@
 </script>
 
 <div class="w-56 break-all">
-	<div class="text-xl font-bold text-primary-400 mb-3">오늘의 시간표</div>
-	<div class="h-60 flex flex-col justify-between">
+	<h1 class="mb-3 text-xl font-bold text-primary-400">오늘의 시간표</h1>
+	<div class="flex h-60 flex-col justify-between">
 		<div>
 			{#each timetableData as { a, b }, index}
 				{#if index != 7}
@@ -31,7 +39,7 @@
 			{/each}
 		</div>
 		<div>
-			<a href="/protected/timetable" class="font-medium text-primary-400 underline"
+			<a href="/protected/timetable" class="font-medium text-primary-400 hover:underline"
 				>전체 시간표 보기</a
 			>
 		</div>

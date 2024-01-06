@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-const getData = async (reqUrl: string) => {
+const getComciganData = async (reqUrl: string) => {
 	const res = await fetch(reqUrl);
 	const text = await res.text();
 	const data = JSON.parse(text.substring(0, text.lastIndexOf('}') + 1));
@@ -8,14 +6,18 @@ const getData = async (reqUrl: string) => {
 	return data;
 };
 
-export class Comcigan {
+export class ComciganStudent {
 	private dataReqUrl = 'http://comci.kr:4082/36179?NzM2MjlfNzE0MzNfMF8x';
 	public data: any;
 
 	async init() {
-		this.data = await getData(this.dataReqUrl);
+		this.data = await getComciganData(this.dataReqUrl);
 	}
 
+	/**
+	 * 이 함수의 소스 코드는 컴시간 웹사이트에서 사용하는 로직에 의존적입니다.
+	 * 따라서 가독성이 떨어질 수 있습니다.
+	 */
 	static parse(data: any, grd: number, cls: number) {
 		const timetable: any = {};
 
@@ -67,9 +69,13 @@ export class ComciganTeacher {
 	public data: any;
 
 	async init() {
-		this.data = await getData(this.dataReqUrl);
+		this.data = await getComciganData(this.dataReqUrl);
 	}
 
+	/**
+	 * 이 함수의 소스 코드는 컴시간 웹사이트에서 사용하는 로직에 의존적입니다.
+	 * 따라서 가독성이 떨어질 수 있습니다.
+	 */
 	static parse(data: any, ti: number) {
 		const mTh = (n1: number, n2: number) => {
 			if (n2 == 100) return Math.floor(n1 / n2);

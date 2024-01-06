@@ -1,3 +1,7 @@
+<!--
+	@component
+	사이드바입니다.
+-->
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { sineIn } from 'svelte/easing';
@@ -9,7 +13,9 @@
 		SidebarGroup,
 		CloseButton,
 		Avatar,
-		Button
+		Button,
+		DarkMode,
+		Toggle
 	} from 'flowbite-svelte';
 	import {
 		ChartBars3FromLeftSolid,
@@ -18,7 +24,6 @@
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
 	import UserRoleBadge from './UserRoleBadge.svelte';
-	import defaultProfileImg from '$lib/assets/하니.png';
 	import type { User } from '@prisma/client';
 
 	export let fullScreen: boolean;
@@ -39,7 +44,7 @@
 			},
 			{
 				href: '/protected/bamboo',
-				label: '대나무숲 🎍'
+				label: '대나무숲'
 			},
 			{
 				href: '/protected/gallery',
@@ -54,7 +59,7 @@
 				icon: CogOutline
 			},
 			{
-				href: '/user-auth/logout',
+				href: '/auth/logout',
 				label: '로그아웃',
 				icon: ArrowRightToBracketOutline,
 				linkOptions: {
@@ -86,8 +91,8 @@
 	$: backdrop = fullScreen ? false : true;
 </script>
 
-<Button on:click={() => (hidden = false)} color="alternative" class="lg:hidden p-2 mb-4" size="md">
-	<ChartBars3FromLeftSolid class="text-gray-500 dark:text-gray-400 pointer-events-none" size="md" />
+<Button on:click={() => (hidden = false)} color="alternative" class="mb-4 p-2 lg:hidden" size="md">
+	<ChartBars3FromLeftSolid class="pointer-events-none text-gray-500 dark:text-gray-400" size="md" />
 </Button>
 
 <Drawer
@@ -96,20 +101,23 @@
 	{backdrop}
 	bind:hidden
 	width="w-fit"
-	class="lg:border-e border-gray-300 p-0 dark:border-gray-700"
+	class="border-gray-300 p-0 dark:border-gray-700 lg:border-e"
 >
-	<Sidebar {activeUrl} class="p-5">
-		<div class="flex lg:hidden">
-			<CloseButton on:click={() => (hidden = true)} class="text-gray-500 m-0 ml-auto" />
-		</div>
-		<SidebarWrapper class="bg-white p-0">
-			<div class="flex mb-5 items-center">
-				<Avatar src={defaultProfileImg} class="mr-3" />
+	<Sidebar {activeUrl}>
+		<SidebarWrapper class="bg-white p-5">
+			<div class="flex lg:hidden">
+				<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
+			</div>
+			<div class="mb-5 flex items-center">
+				<Avatar
+					src="https://github.com/minmoong/sdj-in/assets/62737839/4043a067-1901-4151-91b5-73289c787fd0"
+					class="mr-3"
+				/>
 				<div>
 					<div
 						class="self-center {user.username.length >= 8
 							? 'text-base'
-							: 'text-lg'} font-bold break-all dark:text-white"
+							: 'text-lg'} break-all font-bold dark:text-white"
 					>
 						{user.username}
 					</div>
@@ -145,6 +153,20 @@
 						</svelte:fragment>
 					</SidebarItem>
 				{/each}
+			</SidebarGroup>
+			<SidebarGroup border>
+				<DarkMode size="md">
+					<Toggle
+						slot="lightIcon"
+						class="pointer-events-none"
+						checked={true}
+						size="small"
+						color="green">다크모드</Toggle
+					>
+					<Toggle slot="darkIcon" class="pointer-events-none" checked={false} size="small"
+						>다크모드</Toggle
+					>
+				</DarkMode>
 			</SidebarGroup>
 		</SidebarWrapper>
 	</Sidebar>
