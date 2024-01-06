@@ -15,7 +15,6 @@
 	"devDependencies": {
 		"@prgm/sveltekit-progress-bar": "^1.0.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/adapter-vercel": "^4.0.4",
 		"@sveltejs/kit": "^1.27.4",
 		"@types/bcrypt": "^5.0.2",
 		"@types/jsonwebtoken": "^9.0.5",
