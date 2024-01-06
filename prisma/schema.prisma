@@ -18,7 +18,7 @@ model User {
   class     Int
 }
 
-model VerifyEmailPasscode {
+model Passcode {
   id       Int    @id @default(autoincrement())
   email    String @unique
   passcode String

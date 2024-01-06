@@ -1,3 +1,7 @@
+<!--
+	@component
+	사용자의 역할 뱃지입니다.
+-->
 <script lang="ts">
 	import { Badge } from 'flowbite-svelte';
 	import type { Role } from '@prisma/client';

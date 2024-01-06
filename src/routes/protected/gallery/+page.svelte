@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>서고 갤러리</title>
+	<title>갤러리</title>
 </svelte:head>
 
-<h1>서고 갤러리</h1>
+<div>갤러리</div>

@@ -1,3 +1,7 @@
+<!--
+	@component
+	인증코드 발송시에 사용되는 이메일 내용 템플릿입니다.
+-->
 <script lang="ts">
 	import { Hr, Html, Text } from 'svelte-email';
 

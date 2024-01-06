@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Meal, GlassContainer, TimetableToday } from '$lib/components';
+	import { MealCard, CardContainer, TimetableCard } from '$lib/components';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -9,11 +9,11 @@
 	<title>홈</title>
 </svelte:head>
 
-<div class="flex flex-row flex-wrap">
-	<GlassContainer>
-		<Meal meal={data.meal} />
-	</GlassContainer>
-	<GlassContainer>
-		<TimetableToday timetable={data.timetable} />
-	</GlassContainer>
+<div class="flex flex-col space-y-4">
+	<CardContainer>
+		<MealCard data={data.meal} />
+	</CardContainer>
+	<CardContainer>
+		<TimetableCard data={data.timetable.stData} grd={data.user.grade} cls={data.user.class} />
+	</CardContainer>
 </div>

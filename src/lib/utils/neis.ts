@@ -4,7 +4,7 @@ import { formatDate } from './tools';
 /**
  * NEIS API의 API endpoint에 따른 요청 주소를 반환합니다.
  */
-const getReqUrl = (endpoint: string, params: Record<string, string>) => {
+const getApiUrl = (endpoint: string, params: Record<string, string>) => {
 	const defaultUrlParams = new URLSearchParams({
 		KEY: NEIS_API_KEY,
 		Type: 'json',
@@ -17,24 +17,29 @@ const getReqUrl = (endpoint: string, params: Record<string, string>) => {
 	return reqUrl;
 };
 
-const requestNEIS = async (endpoint: string, params: Record<string, string>) => {
-	const data = await fetch(getReqUrl(endpoint, params)).then((res) => res.json());
+/**
+ * NEIS API에게 데이터를 요청합니다.
+ */
+const requestNeis = async (endpoint: string, params: Record<string, string>) => {
+	const res = await fetch(getApiUrl(endpoint, params));
+	const data = await res.json();
 
 	// 오류 발생시
 	if (data.RESULT) {
+		// 데이터가 존재하지 않을 때에는 빈 배열을 반환
 		if (data.RESULT.CODE === 'INFO-200') {
 			return [];
 		}
 
 		const code = data.RESULT.CODE;
-		const errMsg = data.RESULT.MESSAGE;
+		const message = data.RESULT.MESSAGE;
 
 		throw new Error(
-			`NEIS API 요청 중 오류가 발생하였습니다.\n에러코드: ${code}\n메시지: ${errMsg}`
+			`NEIS API 요청 중 오류가 발생하였습니다.\n에러코드: ${code}\n메시지: ${message}`
 		);
 	}
 
-	return Object.values((Object.values(data) as object[][])[0][1])[0];
+	return data[endpoint][1].row;
 };
 
 /**
@@ -44,9 +49,14 @@ export const getMeal = async (date: Date) => {
 	const params = {
 		MLSV_YMD: formatDate(date)
 	};
-	const data = await requestNEIS('mealServiceDietInfo', params);
-	const lunch = data[0]?.DDISH_NM.split('<br/>').map((m: string) => m.split(' ')[0]) ?? [];
-	const dinner = data[1]?.DDISH_NM.split('<br/>').map((m: string) => m.split(' ')[0]) ?? [];
+	const data = await requestNeis('mealServiceDietInfo', params);
 
-	return { lunch, dinner };
+	const [lunch, dinner] = data.map((d: any) =>
+		d.DDISH_NM.split('<br/>').map((m: string) => m.split(' ')[0])
+	);
+
+	return {
+		lunch: lunch ?? [],
+		dinner: dinner ?? []
+	};
 };

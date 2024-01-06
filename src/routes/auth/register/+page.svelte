@@ -80,12 +80,12 @@
 	<title>계정 등록</title>
 </svelte:head>
 
-<div class="mx-auto flex h-full w-full max-w-xs flex-col justify-center">
-	<div class="mx-auto mb-6 flex items-center">
+<div class="flex h-full flex-col items-center justify-center">
+	<div class="mb-6 flex">
 		<img src={logo} class="mr-3 h-7 md:h-8" alt="로고" />
-		<span class="pr-9 text-xl font-bold text-primary-500 md:text-2xl">SDJ-IN</span>
+		<div class="pr-7 text-xl font-bold text-primary-500 md:text-2xl">SDJ-IN</div>
 	</div>
-	<div class="w-full space-y-4">
+	<div class="w-full max-w-xs space-y-4">
 		<h1 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white md:text-xl">
 			새 SDJ-IN 계정 등록
 		</h1>
@@ -184,12 +184,12 @@
 					계정 등록
 				{/if}
 			</Button>
-			<div class="text-center text-sm font-light text-gray-500 dark:text-white">
-				이미 계정이 등록되어 있나요? <a
-					href="/user-auth/login"
-					class="font-medium text-primary-400 hover:underline">로그인</a
-				>
-			</div>
 		</form>
+		<div class="text-center text-sm font-light text-gray-500 dark:text-white">
+			이미 계정이 등록되어 있나요? <a
+				href="/auth/login"
+				class="font-medium text-primary-400 hover:underline">로그인</a
+			>
+		</div>
 	</div>
 </div>

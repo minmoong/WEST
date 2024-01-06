@@ -15,6 +15,9 @@ const getOptions = (message: string) => {
 	return options;
 };
 
+/**
+ * 에러 토스트 메시지를 띄웁니다.
+ */
 export const toastError = (message: string) => {
 	const opt = getOptions(message);
 
@@ -27,6 +30,9 @@ export const toastError = (message: string) => {
 	});
 };
 
+/**
+ * 성공 토스트 메시지를 띄웁니다.
+ */
 export const toastSuccess = (message: string) => {
 	const opt = getOptions(message);
 

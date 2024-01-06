@@ -1,7 +1,7 @@
-import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { login } from '$lib/utils/user-auth';
+import { fail, redirect } from '@sveltejs/kit';
+import { login } from '$lib/server/auth';
 
-export const actions: Actions = {
+export const actions = {
 	default: async (event) => {
 		const data = await event.request.formData();
 		const username = data.get('username')?.toString();
@@ -35,6 +35,6 @@ export const actions: Actions = {
 			return fail(500, { message: '내부적인 오류가 발생했습니다. 나중에 다시 시도해 주세요.' });
 		}
 
-		throw redirect(303, '/protected');
+		throw redirect(302, '/protected');
 	}
 };

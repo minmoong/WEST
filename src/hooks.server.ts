@@ -1,10 +1,10 @@
 import { error, redirect } from '@sveltejs/kit';
-import { getUserFromCookie } from '$lib/server/auth';
+import { authUser } from '$lib/server/auth';
 
 export const handle = async ({ event, resolve }) => {
 	// 유저 인증
 	try {
-		const user = await getUserFromCookie(event.cookies);
+		const user = await authUser(event.cookies);
 
 		if (user) {
 			event.locals.user = user;
@@ -22,11 +22,11 @@ export const handle = async ({ event, resolve }) => {
 
 	if (pathname.startsWith('/protected')) {
 		if (!event.locals.user) {
-			throw redirect(303, '/user-auth/login');
+			throw redirect(302, '/auth/login');
 		}
-	} else if (pathname == '/user-auth/login' || pathname == '/user-auth/register') {
+	} else if (pathname == '/auth/login' || pathname == '/auth/register') {
 		if (event.locals.user) {
-			throw redirect(303, '/protected');
+			throw redirect(302, '/protected');
 		}
 	}
 

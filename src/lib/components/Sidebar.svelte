@@ -1,3 +1,7 @@
+<!--
+	@component
+	사이드바입니다.
+-->
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { sineIn } from 'svelte/easing';
@@ -9,7 +13,9 @@
 		SidebarGroup,
 		CloseButton,
 		Avatar,
-		Button
+		Button,
+		DarkMode,
+		Toggle
 	} from 'flowbite-svelte';
 	import {
 		ChartBars3FromLeftSolid,
@@ -17,7 +23,6 @@
 		ArrowRightToBracketOutline,
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
-	import defaultProfileImg from '$lib/assets/하니.png';
 	import UserRoleBadge from './UserRoleBadge.svelte';
 	import type { User } from '@prisma/client';
 
@@ -39,7 +44,7 @@
 			},
 			{
 				href: '/protected/bamboo',
-				label: '대나무숲 🎍'
+				label: '대나무숲'
 			},
 			{
 				href: '/protected/gallery',
@@ -54,7 +59,7 @@
 				icon: CogOutline
 			},
 			{
-				href: '/user-auth/logout',
+				href: '/auth/logout',
 				label: '로그아웃',
 				icon: ArrowRightToBracketOutline,
 				linkOptions: {
@@ -98,13 +103,16 @@
 	width="w-fit"
 	class="border-gray-300 p-0 dark:border-gray-700 lg:border-e"
 >
-	<Sidebar {activeUrl} class="p-5">
-		<div class="flex lg:hidden">
-			<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
-		</div>
-		<SidebarWrapper class="bg-white p-0">
+	<Sidebar {activeUrl}>
+		<SidebarWrapper class="bg-white p-5">
+			<div class="flex lg:hidden">
+				<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
+			</div>
 			<div class="mb-5 flex items-center">
-				<Avatar src={defaultProfileImg} class="mr-3" />
+				<Avatar
+					src="https://github.com/minmoong/sdj-in/assets/62737839/4043a067-1901-4151-91b5-73289c787fd0"
+					class="mr-3"
+				/>
 				<div>
 					<div
 						class="self-center {user.username.length >= 8
@@ -145,6 +153,20 @@
 						</svelte:fragment>
 					</SidebarItem>
 				{/each}
+			</SidebarGroup>
+			<SidebarGroup border>
+				<DarkMode size="md">
+					<Toggle
+						slot="lightIcon"
+						class="pointer-events-none"
+						checked={true}
+						size="small"
+						color="green">다크모드</Toggle
+					>
+					<Toggle slot="darkIcon" class="pointer-events-none" checked={false} size="small"
+						>다크모드</Toggle
+					>
+				</DarkMode>
 			</SidebarGroup>
 		</SidebarWrapper>
 	</Sidebar>
