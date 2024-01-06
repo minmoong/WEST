@@ -1,10 +1,13 @@
 <script lang="ts">
 	import '../app.pcss';
-	import { browser } from '$app/environment';
+	import { browser, dev } from '$app/environment';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
+	import { inject } from '@vercel/analytics';
 	import { SnowflakeLayer } from '$lib/components';
 	import { printLogo } from '$lib/utils/tools';
+
+	inject({ mode: dev ? 'development' : 'production' });
 
 	if (browser) {
 		printLogo();
