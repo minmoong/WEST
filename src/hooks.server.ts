@@ -24,7 +24,7 @@ export const handle = async ({ event, resolve }) => {
 		if (!event.locals.user) {
 			throw redirect(302, '/auth/login');
 		}
-	} else if (pathname == '/auth/login' || pathname == '/auth/register') {
+	} else if (pathname === '/auth/login' || pathname === '/auth/register') {
 		if (event.locals.user) {
 			throw redirect(302, '/protected');
 		}
