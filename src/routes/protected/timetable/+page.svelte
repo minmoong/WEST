@@ -7,8 +7,6 @@
 
 	export let data: PageData;
 
-	console.log(data.timetable.thData);
-
 	let selectedRole = '학생';
 	let roleItems = [
 		{ value: '학생', name: '학생 시간표' },
