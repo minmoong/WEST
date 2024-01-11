@@ -17,7 +17,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="h-full p-5 lg:ml-64">
+<div class="p-5 lg:ml-64">
 	<Sidebar {fullScreen} user={data.user} />
 	<slot />
 </div>
