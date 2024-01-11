@@ -104,3 +104,27 @@ export const getActivePeriod = () => {
 
 	return -1;
 };
+
+/**
+ * 인자로 전달된 날짜와 현재 날짜 사이의 시간 차이를 계산하여,
+ * 적절한 형태의 문자열(예: '5분 전', '3일 전' 등)로 반환하는 함수입니다.
+ */
+export const calculateElapsedTime = (time: Date) => {
+	const milliSeconds = Number(new Date()) - Number(time);
+	const seconds = milliSeconds / 1000;
+	const minutes = seconds / 60;
+	const hours = minutes / 60;
+	const days = hours / 24;
+	const weeks = days / 7;
+	const months = days / 30;
+	const years = days / 365;
+
+	if (seconds < 60) return '방금 전';
+	if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+	if (hours < 24) return `${Math.floor(hours)}시간 전`;
+	if (days < 7) return `${Math.floor(days)}일 전`;
+	if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+	if (months < 12) return `${Math.floor(months)}개월 전`;
+
+	return Math.floor(years) + '년 전';
+};
