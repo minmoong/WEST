@@ -35,14 +35,17 @@
 			return;
 		}
 
-		const loadingObserver = new IntersectionObserver((entries) => {
+		// eslint-disable-next-line no-undef
+		const observerCallback: IntersectionObserverCallback = (entries) => {
 			const element = entries[0];
 
 			if (element.isIntersecting) {
 				pageNumber += 1;
 				loadPosts(pageNumber);
 			}
-		});
+		};
+		const observerOptions = { threshold: 0.7 };
+		const loadingObserver = new IntersectionObserver(observerCallback, observerOptions);
 
 		loadingObserver.observe(loadingElement);
 	});
