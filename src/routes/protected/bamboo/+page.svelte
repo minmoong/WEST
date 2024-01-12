@@ -44,8 +44,7 @@
 				loadPosts(pageNumber);
 			}
 		};
-		const observerOptions = { threshold: 0.3 };
-		const loadingObserver = new IntersectionObserver(observerCallback, observerOptions);
+		const loadingObserver = new IntersectionObserver(observerCallback);
 
 		loadingObserver.observe(loadingElement);
 	});
