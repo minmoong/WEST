@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Hr } from 'flowbite-svelte';
+	import { browser } from '$app/environment';
+	import { Button, Hr } from 'flowbite-svelte';
+	import { ArrowLeftSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import { calculateElapsedTime } from '$lib/utils/tools';
 	import type { PageData } from './$types';
@@ -20,12 +22,19 @@
 			postData.views = data.views;
 		}
 	});
+
+	const back = () => {
+		if (browser) window.history.back();
+	};
 </script>
 
 <svelte:head>
 	<title>글 보기</title>
 </svelte:head>
 
+<Button pill={true} on:click={back} class="invisible !p-2 lg:visible" color="alternative">
+	<ArrowLeftSolid size="sm" class="pointer-events-none h-4 w-4" />
+</Button>
 {#if postData}
 	<div class="h-full w-full max-w-2xl break-all pt-5">
 		<h1 class="mb-4 text-xl font-bold">{postData.title}</h1>
