@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { Button, Hr } from 'flowbite-svelte';
-	import { ArrowLeftSolid } from 'flowbite-svelte-icons';
+	import { goto } from '$app/navigation';
+	import { Button, Dropdown, DropdownItem, Hr } from 'flowbite-svelte';
+	import { ArrowLeftSolid, DotsHorizontalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import { calculateElapsedTime } from '$lib/utils/tools';
+	import { goBack } from '$lib/utils/navigation';
+	import { toastError, toastSuccess } from '$lib/utils/toast';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -17,27 +19,65 @@
 				method: 'POST',
 				body: JSON.stringify(requestData)
 			});
-			const data = await res.json();
+			const { views } = await res.json();
 
-			postData.views = data.views;
+			postData.views = views;
 		}
 	});
 
-	const back = () => {
-		if (browser) window.history.back();
+	const onDeleteButtonClicked = async () => {
+		if (postData) {
+			const requestData = { postId: postData.id };
+			const res = await fetch('/api/bamboo/delete-post', {
+				method: 'POST',
+				body: JSON.stringify(requestData)
+			});
+			const { success } = await res.json();
+
+			if (success) {
+				toastSuccess('글 삭제 성공!');
+				goto('/protected/bamboo');
+			} else {
+				toastError('글 삭제에 실패하였습니다. 나중에 다시 시도해 주세요.');
+			}
+		}
 	};
 </script>
 
 <svelte:head>
-	<title>글 보기</title>
+	<title>{postData?.title ? `${postData.title} • 대나무숲` : 'Oops! 존재하지 않는 글입니다.'}</title
+	>
 </svelte:head>
 
-<Button pill={true} on:click={back} class="invisible !p-2 lg:visible" color="alternative">
-	<ArrowLeftSolid size="sm" class="pointer-events-none h-4 w-4" />
+<Button pill={true} on:click={goBack} class="invisible mb-5 !p-2 lg:visible" color="alternative">
+	<ArrowLeftSolid class="pointer-events-none h-4 w-4 text-gray-500 dark:text-gray-400" />
 </Button>
 {#if postData}
-	<div class="h-full w-full max-w-2xl break-all pt-5">
-		<h1 class="mb-4 text-xl font-bold">{postData.title}</h1>
+	<div class="h-full w-full max-w-2xl break-all">
+		<div class="flex justify-between">
+			<div class="mb-4 text-xl font-bold">{postData.title}</div>
+			{#if data.user.id === postData.authorId}
+				<div>
+					<Button pill={true} color="alternative" class="!p-2">
+						<DotsHorizontalOutline
+							size="sm"
+							class="pointer-events-none h-4 w-4 text-gray-500 dark:text-gray-400"
+						/>
+					</Button>
+					<Dropdown>
+						<DropdownItem
+							class="flex text-red-500 dark:text-red-400"
+							on:click={onDeleteButtonClicked}
+						>
+							삭제
+							<TrashBinSolid
+								class="pointer-events-none ml-2 mt-[2px] h-4 w-4 text-red-500 dark:text-red-400"
+							/>
+						</DropdownItem>
+					</Dropdown>
+				</div>
+			{/if}
+		</div>
 		<div class="flex justify-between whitespace-nowrap">
 			<div class="flex overflow-hidden">
 				<div>{postData.category}</div>

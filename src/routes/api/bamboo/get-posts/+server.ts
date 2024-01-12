@@ -7,6 +7,7 @@ export const POST = async ({ request }) => {
 	const { pageNumber } = await request.json();
 
 	const posts = await prisma.post.findMany({
+		where: { deleted: false },
 		select: {
 			id: true,
 			createdAt: true,
@@ -14,9 +15,7 @@ export const POST = async ({ request }) => {
 			title: true,
 			views: true,
 			author: {
-				select: {
-					username: true
-				}
+				select: { username: true }
 			}
 		},
 		skip: pageNumber * TAKES_BY_ONE_REQUEST,
@@ -26,7 +25,9 @@ export const POST = async ({ request }) => {
 		}
 	});
 
-	const countOfPosts = await prisma.post.count();
+	const countOfPosts = await prisma.post.count({
+		where: { deleted: false }
+	});
 
 	// +page.server.ts에서 페이지가 처음 로드될 때 15개를 가져가므로
 	// countOfPost에서 15을 빼야 합니다.
