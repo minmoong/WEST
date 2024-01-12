@@ -14,7 +14,7 @@
 	 */
 	const loadPosts = async (pageNumber: number) => {
 		const requestData = { pageNumber };
-		const res = await fetch('/api/get-posts', {
+		const res = await fetch('/api/bamboo/get-posts', {
 			method: 'POST',
 			body: JSON.stringify(requestData)
 		});
