@@ -35,9 +35,7 @@ export const actions = {
 					title,
 					content,
 					author: {
-						connect: {
-							id: locals.user.id
-						}
+						connect: { id: locals.user.id }
 					}
 				}
 			});

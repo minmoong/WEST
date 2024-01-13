@@ -6,7 +6,6 @@ const TAKES_BY_INITIAL = 10;
 
 export const load = async () => {
 	const posts = await prisma.post.findMany({
-		where: { deleted: false },
 		select: {
 			id: true,
 			createdAt: true,
@@ -25,9 +24,7 @@ export const load = async () => {
 		}
 	});
 
-	const countOfPosts = await prisma.post.count({
-		where: { deleted: false }
-	});
+	const countOfPosts = await prisma.post.count();
 
 	const isFullLoaded = countOfPosts <= TAKES_BY_INITIAL;
 

@@ -30,7 +30,17 @@ model Post {
   views     Int      @default(0)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
-  deleted   Boolean  @default(false)
+}
+
+model DeletedPost {
+  id        Int      @id
+  createdAt DateTime
+  deletedAt DateTime @default(now())
+  category  String
+  title     String
+  content   String
+  views     Int      @default(0)
+  authorId  Int
 }
 
 model Passcode {

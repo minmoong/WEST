@@ -4,7 +4,7 @@ export const load = async ({ params }) => {
 	const postId = Number(params.id);
 
 	const post = await prisma.post.findUnique({
-		where: { id: postId, deleted: false },
+		where: { id: postId },
 		include: {
 			author: {
 				select: { username: true }

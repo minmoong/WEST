@@ -14,9 +14,22 @@ export const POST = async (event) => {
 
 	if (post.authorId !== user.id) return json({ success: false });
 
-	await prisma.post.update({
-		where: { id: postId },
-		data: { deleted: true }
+	// Post 테이블의 데이터를 지우고
+	// DeletedPost 테이블로 옮깁니다.
+	const deletedPost = await prisma.post.delete({
+		where: { id: postId }
+	});
+
+	await prisma.deletedPost.create({
+		data: {
+			id: deletedPost.id,
+			createdAt: deletedPost.createdAt,
+			category: deletedPost.category,
+			title: deletedPost.title,
+			content: deletedPost.content,
+			views: deletedPost.views,
+			authorId: deletedPost.authorId
+		}
 	});
 
 	return json({ success: true });
