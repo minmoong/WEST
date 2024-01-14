@@ -2,7 +2,7 @@
 	import { Button, Spinner } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import { BambooListItem } from '$lib/components';
-	import { posts, updateNewPosts } from '$lib/stores/posts';
+	import { posts, loadNewPosts } from '$lib/stores/posts';
 
 	// IntersectionObserver로 무한스크롤 기능을 구현합니다.
 	let loadingElement: HTMLDivElement | undefined;
@@ -17,7 +17,7 @@
 			const element = entries[0];
 
 			if (element.isIntersecting) {
-				updateNewPosts();
+				loadNewPosts();
 			}
 		};
 		const loadingObserver = new IntersectionObserver(observerCallback);

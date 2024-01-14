@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Input, Textarea, Alert, Button, Select, Spinner } from 'flowbite-svelte';
 	import { toastError, toastSuccess } from '$lib/utils/toast';
+	import { resetPostsStore } from '$lib/stores/posts';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
 	let isSubmitting = false;
@@ -15,6 +16,7 @@
 			if (result.type === 'failure' && result.data) {
 				toastError(result.data.message);
 			} else if (result.type === 'redirect') {
+				resetPostsStore();
 				toastSuccess('업로드 성공!');
 			}
 
