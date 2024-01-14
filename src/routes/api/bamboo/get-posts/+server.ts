@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
-const TAKES_BY_ONE_REQUEST = 10;
+const TAKES_BY_ONE_REQUEST = 15;
 
 export const POST = async ({ request }) => {
 	const { pageNumber } = await request.json();
@@ -26,9 +26,9 @@ export const POST = async ({ request }) => {
 
 	const countOfPosts = await prisma.post.count();
 
-	// +page.server.ts에서 페이지가 처음 로드될 때 15개를 가져가므로
-	// countOfPost에서 15을 빼야 합니다.
-	const isFullLoaded = countOfPosts - 15 <= pageNumber * TAKES_BY_ONE_REQUEST;
+	// pageNumber는 0부터 시작하기 때문에,
+	// 총 몇 개를 가져갔는지 계산하기 위해서는 1을 더해줘야 합니다.
+	const isFullLoaded = countOfPosts <= (pageNumber + 1) * TAKES_BY_ONE_REQUEST;
 
 	return json({ posts, isFullLoaded });
 };

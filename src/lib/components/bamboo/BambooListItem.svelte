@@ -5,17 +5,9 @@
 <script lang="ts">
 	import { CaretUpSolid } from 'flowbite-svelte-icons';
 	import { calculateElapsedTime } from '$lib/utils/tools';
+	import type { PostPreview } from '$lib/types/bamboo/post';
 
-	export let postData: {
-		id: number;
-		createdAt: Date;
-		category: string;
-		title: string;
-		views: number;
-		author: {
-			username: string;
-		};
-	};
+	export let postData: PostPreview;
 </script>
 
 <div
