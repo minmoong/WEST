@@ -6,6 +6,7 @@
 	import { calculateElapsedTime } from '$lib/utils/tools';
 	import { goBack } from '$lib/utils/navigation';
 	import { toastError, toastSuccess } from '$lib/utils/toast';
+	import { resetPostsStore } from '$lib/stores/posts';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -35,6 +36,7 @@
 			const { success } = await res.json();
 
 			if (success) {
+				resetPostsStore();
 				toastSuccess('글 삭제 성공!');
 				goto('/protected/bamboo');
 			} else {
