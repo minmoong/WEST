@@ -18,7 +18,7 @@
 			if (result.type === 'failure' && result.data) {
 				toastError(result.data.message);
 			} else if (result.type === 'redirect') {
-				toastSuccess('로그인 성공!');
+				toastSuccess('로그인에 성공했습니다.');
 			}
 
 			loggingIn = false;
@@ -39,13 +39,7 @@
 		<h1 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white md:text-xl">
 			SDJ-IN 계정으로 로그인
 		</h1>
-		<form
-			method="POST"
-			spellcheck="false"
-			class="space-y-4"
-			autocomplete="off"
-			use:enhance={submitFunction}
-		>
+		<form method="POST" spellcheck="false" class="space-y-4" use:enhance={submitFunction}>
 			<Input type="text" name="username" placeholder="아이디" required>
 				<UserSolid slot="left" tabindex="-1" />
 			</Input>
