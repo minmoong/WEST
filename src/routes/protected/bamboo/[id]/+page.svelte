@@ -11,13 +11,13 @@
 		Input,
 		Spinner
 	} from 'flowbite-svelte';
-	import { ArrowLeftSolid, DotsHorizontalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
+	import { DotsHorizontalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import { calculateElapsedTime } from '$lib/utils/tools';
-	import { goBack } from '$lib/utils/navigation';
 	import { toastError, toastSuccess } from '$lib/utils/toast';
 	import { resetPostsStore } from '$lib/stores/posts';
 	import BambooCommentItem from '$lib/components/bamboo/BambooCommentItem.svelte';
+	import GoBackButton from '$lib/components/GoBackButton.svelte';
 	import type { PageData } from './$types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
@@ -84,9 +84,7 @@
 	>
 </svelte:head>
 
-<Button pill={true} on:click={goBack} class="mb-3 block !p-2 lg:mb-5" color="alternative">
-	<ArrowLeftSolid class="pointer-events-none h-4 w-4 text-gray-500 dark:text-gray-400" />
-</Button>
+<GoBackButton />
 {#if postData}
 	<div class="h-full w-full max-w-xl break-all">
 		<!-- 제목 영역 -->
