@@ -10,12 +10,59 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+
   email     String   @unique
   username  String   @unique
   password  String
   role      Role     @default(STUDENT)
   grade     Int
   class     Int
+
+  post Post[]
+  comment Comment[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  category  String
+  title     String
+  content   String
+  views     Int      @default(0)
+
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId  Int?
+
+  comment   Comment[]
+}
+
+model DeletedPost {
+  id         Int      @id
+  createdAt  DateTime
+  deletedAt  DateTime @default(now())
+
+  category   String
+  title      String
+  content    String
+  views      Int      @default(0)
+
+  authorId   Int
+
+  commentIds Int[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  content   String
+
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: SetNull)
+  postId    Int?
+
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId  Int?
 }
 
 model Passcode {

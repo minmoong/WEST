@@ -20,7 +20,7 @@ export const handle = async ({ event, resolve }) => {
 	// 라우트 프로텍팅
 	const pathname = event.url.pathname;
 
-	if (pathname.startsWith('/protected')) {
+	if (!pathname.startsWith('/auth')) {
 		if (!event.locals.user) {
 			throw redirect(302, '/auth/login');
 		}

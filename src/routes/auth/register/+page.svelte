@@ -5,6 +5,7 @@
 		UserSolid,
 		LockSolid,
 		DotsHorizontalOutline,
+		EyeSlashOutline,
 		EnvelopeSolid
 	} from 'flowbite-svelte-icons';
 	import { toastError, toastSuccess } from '$lib/utils/toast';
@@ -117,7 +118,7 @@
 					class="rounded-t-none"
 					required
 				>
-					<DotsHorizontalOutline slot="left" tabindex="-1" />
+					<EyeSlashOutline slot="left" tabindex="-1" />
 				</Input>
 			</div>
 			<div class="grid grid-cols-2 gap-4">

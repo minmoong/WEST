@@ -5,7 +5,8 @@ import { toast } from '@zerodevx/svelte-toast';
  */
 const getOptions = (message: string) => {
 	const options = {
-		duration: 4000
+		duration: 4000,
+		pausable: true
 	};
 
 	if (message.length > 18) {

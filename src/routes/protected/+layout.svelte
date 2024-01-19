@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Sidebar } from '$lib/components';
-	import type { PageData } from './$types';
+	import type { LayoutData } from './$types';
 
-	export let data: PageData;
+	export let data: LayoutData;
 
 	// 스크린 크기 설정
 	let innerWidth = 0;
@@ -17,7 +17,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="h-full p-5 lg:ml-64">
+<div class="p-5 lg:ml-64">
 	<Sidebar {fullScreen} user={data.user} />
 	<slot />
 </div>
