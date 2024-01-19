@@ -17,7 +17,8 @@ export const POST = async (event) => {
 	// Post 테이블의 데이터를 지우고
 	// DeletedPost 테이블로 옮깁니다.
 	const deletedPost = await prisma.post.delete({
-		where: { id: postId }
+		where: { id: postId },
+		include: { comment: true }
 	});
 
 	await prisma.deletedPost.create({
@@ -28,7 +29,8 @@ export const POST = async (event) => {
 			title: deletedPost.title,
 			content: deletedPost.content,
 			views: deletedPost.views,
-			authorId: deletedPost.authorId
+			authorId: deletedPost.authorId as number,
+			commentIds: deletedPost.comment.map((comment) => comment.id)
 		}
 	});
 

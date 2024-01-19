@@ -8,3 +8,12 @@ export type PostPreview = {
 		username: string;
 	};
 };
+
+export type PostComment = {
+	createdAt: Date;
+	content: string;
+	author: {
+		id: number;
+		username: string;
+	};
+};
