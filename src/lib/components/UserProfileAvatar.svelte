@@ -15,6 +15,6 @@
 	{...$$restProps}
 	src={imgUrl}
 	{size}
-	border={active}
-	class="!ring-green-400 {$$props.class}"
+	border
+	class="{active ? '!ring-green-400' : 'ring-gray-300 dark:ring-gray-500'} {$$props.class}"
 />
