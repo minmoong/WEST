@@ -108,7 +108,7 @@
 				<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
 			</div>
 			<div class="mb-5 flex items-center">
-				<UserProfileAvatar class="mr-3" />
+				<UserProfileAvatar active={true} class="mr-3" />
 				<div>
 					<div
 						class="self-center {user.username.length >= 8

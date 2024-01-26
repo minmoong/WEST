@@ -17,6 +17,7 @@ model User {
   role      Role     @default(STUDENT)
   grade     Int
   class     Int
+  active    Boolean
 
   post Post[]
   comment Comment[]

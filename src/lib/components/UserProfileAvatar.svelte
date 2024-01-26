@@ -8,7 +8,7 @@
 	export let imgUrl =
 		'https://github.com/minmoong/sdj-in/assets/62737839/4043a067-1901-4151-91b5-73289c787fd0';
 	export let size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
-	export let active = true;
+	export let active: boolean;
 </script>
 
 <Avatar

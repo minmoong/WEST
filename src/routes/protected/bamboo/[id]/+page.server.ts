@@ -17,7 +17,8 @@ export const load = async ({ params }) => {
 					author: {
 						select: {
 							id: true,
-							username: true
+							username: true,
+							active: true
 						}
 					}
 				}
@@ -54,7 +55,8 @@ export const actions = {
 					author: {
 						select: {
 							id: true,
-							username: true
+							username: true,
+							active: true
 						}
 					}
 				}

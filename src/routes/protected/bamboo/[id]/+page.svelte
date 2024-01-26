@@ -160,7 +160,7 @@
 			</div>
 			<div class="space-y-7">
 				{#each postData.comment as commentData}
-					<BambooCommentItem {commentData} />
+					<BambooCommentItem userId={data.user.id} {commentData} />
 				{/each}
 			</div>
 		</div>
