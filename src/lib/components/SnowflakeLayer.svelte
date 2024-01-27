@@ -44,7 +44,7 @@
 	};
 
 	onMount(() => {
-		for (let i = 0; i < 50; i++) {
+		for (let i = 0; i < 30; i++) {
 			setTimeout(makeSnowflake, 100 * i);
 		}
 	});
