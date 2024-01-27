@@ -130,7 +130,7 @@
 		<div class="mt-10">
 			<h1 class="mb-6 text-lg font-bold">댓글 {postData.comment.length}개</h1>
 			<div class="mb-8 flex items-center">
-				<UserProfileAvatar size="sm" active={false} class="mr-3" />
+				<UserProfileAvatar size="sm" dotSize="md" active={true} class="mr-3" />
 				<form
 					method="POST"
 					action="?/upload-comment"
