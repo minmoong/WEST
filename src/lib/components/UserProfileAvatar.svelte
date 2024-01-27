@@ -19,4 +19,5 @@
 	src={imgUrl}
 	{size}
 	dot={{ placement: 'bottom-right', color: active ? 'green' : 'gray', size: dotSize }}
+	class="shrink-0 {$$props.class}"
 />

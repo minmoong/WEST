@@ -107,7 +107,10 @@
 			<div class="flex lg:hidden">
 				<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
 			</div>
-			<div class="mb-5 flex items-center">
+			<a
+				href="/protected/profile/{user.username}"
+				class="mb-3 flex items-center rounded-lg py-1 pl-2 hover:bg-gray-100 hover:dark:bg-gray-700"
+			>
 				<UserProfileAvatar active={true} class="mr-3" />
 				<div>
 					<div
@@ -119,7 +122,7 @@
 					</div>
 					<UserRoleBadge userRole={user.role} />
 				</div>
-			</div>
+			</a>
 			<!-- 페이지 메뉴 -->
 			<SidebarGroup>
 				{#each routes.pages as { href, label }}
