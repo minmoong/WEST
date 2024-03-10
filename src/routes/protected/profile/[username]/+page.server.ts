@@ -1,11 +1,11 @@
 import { prisma } from '$lib/server/prisma';
 
-export const load = async ({ params }) => {
-	const username = params.username;
+export const load = async (event) => {
+	const username = event.params.username;
 
-	const user = prisma.user.findUnique({
+	const profileUser = await prisma.user.findUnique({
 		where: { username }
 	});
 
-	return { user };
+	return { profileUser };
 };

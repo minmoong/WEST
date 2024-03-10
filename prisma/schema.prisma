@@ -18,6 +18,8 @@ model User {
   grade     Int
   class     Int
   active    Boolean
+  bio       String?
+  club      String?
 
   post Post[]
   comment Comment[]
