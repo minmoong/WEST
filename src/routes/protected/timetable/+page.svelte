@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { Select } from 'flowbite-svelte';
-	import { Timetable, CardContainer } from '$lib/components';
+	import { Timetable } from '$lib/components';
 	import { ComciganStudent, ComciganTeacher } from '$lib/utils/comcigan';
 	import type { PageData } from './$types';
 
@@ -84,14 +84,12 @@
 	/>
 
 	{#if selectedRole === '학생'}
-		<CardContainer>
-			<Timetable
-				{timetable}
-				role="학생"
-				periodTime={data.timetable.stData['일과시간']}
-				updatedAt={data.timetable.stData['자료244']}
-			/>
-		</CardContainer>
+		<Timetable
+			{timetable}
+			role="학생"
+			periodTime={data.timetable.stData['일과시간']}
+			updatedAt={data.timetable.stData['자료244']}
+		/>
 		<Select
 			items={grdClsItems}
 			class="w-fit"
@@ -101,14 +99,12 @@
 			on:change={storeGrdCls}
 		/>
 	{:else if selectedRole === '선생님'}
-		<CardContainer>
-			<Timetable
-				timetable={tTimetable}
-				role="선생님"
-				periodTime={data.timetable.thData['일과시간']}
-				updatedAt={data.timetable.thData['자료244']}
-			/>
-		</CardContainer>
+		<Timetable
+			timetable={tTimetable}
+			role="선생님"
+			periodTime={data.timetable.thData['일과시간']}
+			updatedAt={data.timetable.thData['자료244']}
+		/>
 		<Select
 			items={thItems}
 			class="w-fit"

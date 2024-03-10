@@ -7,5 +7,7 @@ export const load = async (event) => {
 		where: { username }
 	});
 
-	return { profileUser };
+	const isMyProfile = event.locals.user?.id === profileUser?.id;
+
+	return { profileUser, isMyProfile };
 };

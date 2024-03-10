@@ -7,8 +7,6 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
-	let isMyProfile = data.user.id === data.profileUser?.id;
 </script>
 
 <svelte:head>
@@ -24,7 +22,7 @@
 		<UserProfileAvatar
 			size="xl"
 			dotSize="xl"
-			active={isMyProfile ? true : data.profileUser.active}
+			active={data.isMyProfile ? true : data.profileUser.active}
 			rounded
 		/>
 		<div>
@@ -39,7 +37,7 @@
 			</div>
 		</div>
 		<div>{data.profileUser?.bio ?? ''}</div>
-		{#if isMyProfile}
+		{#if data.isMyProfile}
 			<Button color="alternative" size="sm">프로필 수정</Button>
 		{/if}
 		<Hr />

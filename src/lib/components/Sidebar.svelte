@@ -109,7 +109,7 @@
 			</div>
 			<a
 				href="/protected/profile/{user.username}"
-				class="mb-3 flex items-center rounded-lg py-1 pl-2 hover:bg-gray-100 hover:dark:bg-gray-700"
+				class="mb-7 flex items-center rounded-lg py-1 pl-2 hover:bg-gray-100 hover:dark:bg-gray-700"
 			>
 				<UserProfileAvatar active={true} class="mr-3" />
 				<div>

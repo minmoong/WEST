@@ -3,40 +3,47 @@
 	홈 페이지에서 보여주는 오늘 급식 정보 컴포넌트입니다.
 -->
 <script lang="ts">
-	import { getRandomNumberInRange } from '$lib/utils/tools';
+	import { Spinner } from 'flowbite-svelte';
 
-	export let data;
-
-	const lunch = data.lunch;
-	const dinner = data.dinner;
-	const mealData = [
-		{ name: '중식', data: lunch },
-		{ name: '석식', data: dinner }
-	];
-
-	const keywords = ['급식', '엄준식', '영양 보충'];
-	const emojis = ['🍴', '🍔', '🍗'];
-	const keywordIndex = getRandomNumberInRange(0, keywords.length - 1);
-	const emojiIndex = getRandomNumberInRange(0, emojis.length - 1);
+	const getMeal = async () => {
+		const res = await fetch('/api/neis/get-meal');
+		const meal = (await res.json()).meal;
+		return meal;
+	};
 </script>
 
-<div class="w-56 break-all">
-	<h1 class="mb-3 text-xl font-bold text-primary-400">
-		오늘의 {keywords[keywordIndex]}
-		{emojis[emojiIndex]}
-	</h1>
+<div
+	class="relative max-w-xs break-all rounded-2xl border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
+>
+	<h1 class="mb-5 text-xl">오늘의 급식 메뉴 🍔</h1>
 	<div class="h-60 space-y-3 overflow-y-auto">
-		{#each mealData as { name, data }}
-			<div>
-				<div class="text-lg font-bold">{name}</div>
+		{#await getMeal()}
+			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+				<Spinner size="8" />
+			</div>
+		{:then meal}
+			<div class="space-y-5">
 				<div>
-					{#each data as d}
-						<div>{d}</div>
-					{:else}
-						<div class="text-center my-7 font-bold dark:text-white">오늘은 {name}이 없습니다.</div>
-					{/each}
+					<div class="mb-2 text-lg">중식🍴</div>
+					<div>
+						{#each meal.lunch as data}
+							<div class="font-light">- {data}</div>
+						{:else}
+							<div class="text-center my-7 font-bold dark:text-white">오늘은 중식이 없습니다.</div>
+						{/each}
+					</div>
+				</div>
+				<div>
+					<div class="mb-2 text-lg">석식🍴</div>
+					<div>
+						{#each meal.dinner as data}
+							<div class="font-light">- {data}</div>
+						{:else}
+							<div class="text-center my-7 font-bold dark:text-white">오늘은 석식이 없습니다.</div>
+						{/each}
+					</div>
 				</div>
 			</div>
-		{/each}
+		{/await}
 	</div>
 </div>

@@ -35,5 +35,8 @@
 
 <div class="p-5 lg:ml-64">
 	<Sidebar {fullScreen} user={data.user} />
-	<slot />
+
+	<div class="mx-auto max-w-2xl">
+		<slot />
+	</div>
 </div>

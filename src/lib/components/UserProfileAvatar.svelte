@@ -8,7 +8,7 @@
 	type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 	export let imgUrl =
-		'https://github.com/minmoong/sdj-in/assets/62737839/4043a067-1901-4151-91b5-73289c787fd0';
+		'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png';
 	export let size: Size = 'md';
 	export let dotSize: Size = 'lg';
 	export let active: boolean;

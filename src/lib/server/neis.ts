@@ -1,5 +1,5 @@
 import { NEIS_API_KEY } from '$env/static/private';
-import { formatDate } from './tools';
+import { formatDate } from '../utils/tools';
 
 /**
  * NEIS API의 API endpoint에 따른 요청 주소를 반환합니다.

@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="flex w-full rounded-2xl border p-3 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+	class="flex w-full rounded-2xl border bg-white p-3 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
 >
 	<a href={`/protected/bamboo/${postData.id}`} class="block w-full">
 		<div class="flex w-full">
