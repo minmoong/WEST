@@ -6,7 +6,7 @@ export type PostPreview = {
 	views: number;
 	author: {
 		username: string;
-	};
+	} | null;
 };
 
 export type PostComment = {
@@ -15,5 +15,6 @@ export type PostComment = {
 	author: {
 		id: number;
 		username: string;
-	};
+		active: boolean;
+	} | null;
 };

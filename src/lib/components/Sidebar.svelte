@@ -12,7 +12,6 @@
 		SidebarItem,
 		SidebarGroup,
 		CloseButton,
-		Avatar,
 		Button,
 		DarkMode,
 		Toggle
@@ -23,7 +22,7 @@
 		ArrowRightToBracketOutline,
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
-	import UserRoleBadge from './UserRoleBadge.svelte';
+	import { UserRoleBadge, UserProfileAvatar } from '.';
 	import type { User } from '@prisma/client';
 
 	export let fullScreen: boolean;
@@ -54,7 +53,7 @@
 		// 설정 컨트롤 메뉴
 		settings: [
 			{
-				href: '/protected/profile',
+				href: `/protected/profile/${user.username}`,
 				label: '프로필 설정',
 				icon: CogOutline
 			},
@@ -108,11 +107,11 @@
 			<div class="flex lg:hidden">
 				<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
 			</div>
-			<div class="mb-5 flex items-center">
-				<Avatar
-					src="https://github.com/minmoong/sdj-in/assets/62737839/4043a067-1901-4151-91b5-73289c787fd0"
-					class="mr-3"
-				/>
+			<a
+				href="/protected/profile/{user.username}"
+				class="mb-3 flex items-center rounded-lg py-1 pl-2 hover:bg-gray-100 hover:dark:bg-gray-700"
+			>
+				<UserProfileAvatar active={true} class="mr-3" />
 				<div>
 					<div
 						class="self-center {user.username.length >= 8
@@ -123,7 +122,7 @@
 					</div>
 					<UserRoleBadge userRole={user.role} />
 				</div>
-			</div>
+			</a>
 			<!-- 페이지 메뉴 -->
 			<SidebarGroup>
 				{#each routes.pages as { href, label }}
