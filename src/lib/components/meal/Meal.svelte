@@ -4,10 +4,17 @@
 -->
 <script lang="ts">
 	import { Spinner } from 'flowbite-svelte';
+	import { formatDate } from '$lib/utils/tools';
 
 	const getMeal = async () => {
-		const res = await fetch('/api/info/get-meal');
+		const params = new URLSearchParams({
+			date: formatDate(new Date(), '-')
+		});
+		const url = `/api/info/get-meal?${params.toString()}`;
+		const res = await fetch(url);
+
 		const meal = (await res.json()).meal;
+
 		return meal;
 	};
 </script>
