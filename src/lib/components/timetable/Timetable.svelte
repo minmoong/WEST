@@ -1,77 +1,70 @@
 <!--
 	@component
-	시간표 페이지에서 사용되는 시간표 컴포넌트입니다.
+	홈 페이지에서 보여주는 오늘 우리반 시간표 컴포넌트입니다.
 -->
 <script lang="ts">
 	import { onDestroy } from 'svelte';
+	import { Spinner } from 'flowbite-svelte';
 	import { getActivePeriod } from '$lib/utils/tools';
+	import type { Timetable } from '$lib/types/timetable/timetable';
 
-	export let timetable: { [weekday: number]: { [period: number]: any } };
-	export let role: '학생' | '선생님';
-	export let periodTime: string[];
-	export let updatedAt: string;
+	export let grade: number;
+	export let klass: number;
 
-	const weekday = new Date().getDay();
 	let activePeriod = getActivePeriod();
 
 	const interval = setInterval(() => {
-		activePeriod = getActivePeriod();
+		activePeriod = 2;
 	}, 1000);
 
 	onDestroy(() => {
 		clearInterval(interval);
 	});
+
+	const getTimetable = async (grade: number, klass: number) => {
+		const params = new URLSearchParams({
+			grade: grade.toString(),
+			class: klass.toString()
+		});
+		const url = `/api/info/get-timetable?${params.toString()}`;
+
+		const res = await fetch(url);
+		const timetable: Timetable = (await res.json()).timetable;
+
+		return Object.values(timetable[new Date().getDay()] ?? []);
+	};
 </script>
 
-<div class="space-y-3">
-	<h1 class="text-xl font-bold text-primary-400">{role} 시간표</h1>
-	<div class="flex h-96 w-[350px]">
-		<div class="flex flex-1 flex-col">
-			{#each periodTime as pt, index}
-				{#if index != 7}
-					<div class="m-px flex-1 border border-slate-300 py-1 dark:border-slate-600">
-						<div class="flex h-full flex-col justify-center text-center text-sm">
-							{pt}
-						</div>
-					</div>
-				{/if}
-			{/each}
-		</div>
-		{#each Object.values(timetable) as value, columnIndex}
-			<div class="flex flex-1 flex-col">
-				{#each Object.values(value) as { a, b, changed }, index}
+<div
+	class="relative break-all rounded-2xl border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
+>
+	<h1 class="mb-5 text-xl">{grade}학년 {klass}반 시간표 📅</h1>
+	<div class="h-60 overflow-y-auto">
+		{#await getTimetable(grade, klass)}
+			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+				<Spinner size="8" />
+			</div>
+		{:then timetable}
+			<div class="space-y-2">
+				{#each timetable as { subject, teacher }, index}
 					{#if index != 7}
 						<div
-							class="m-px flex-1 border border-slate-300 py-1 dark:border-slate-600 {changed
-								? 'changed'
-								: ''} {columnIndex + 1 === weekday && index + 1 === activePeriod ? 'active' : ''}"
+							class="font-light [&.active]:font-bold [&.active]:after:content-['👈'] {index + 1 ===
+							activePeriod
+								? 'active'
+								: ''}"
 						>
-							{#if a === ''}
-								<div></div>
-							{:else}
-								<div class="flex h-full flex-col justify-center text-center text-sm">
-									<div>{a}</div>
-									<div>{b}</div>
-								</div>
-							{/if}
+							{index + 1}교시 - {subject == '' ? '없음' : `${subject} ${teacher}`}
 						</div>
 					{/if}
+				{:else}
+					<div
+						class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap"
+					>
+						오늘은 시간표가 없습니다.
+					</div>
 				{/each}
 			</div>
-		{/each}
-	</div>
-	<div class="text-center text-sm">
-		수정일: {updatedAt}
+		{/await}
 	</div>
 </div>
-
-<style>
-	.changed {
-		background: linear-gradient(135deg, rgba(96, 165, 250, 0.4), rgba(96, 165, 250, 0.1));
-	}
-
-	.active {
-		border-image: linear-gradient(to right, #60a5fa, #00d6ff);
-		border-image-slice: 1;
-	}
-</style>

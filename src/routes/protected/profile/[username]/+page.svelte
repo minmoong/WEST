@@ -23,7 +23,6 @@
 			size="xl"
 			dotSize="xl"
 			active={data.isMyProfile ? true : data.profileUser.active}
-			rounded
 		/>
 		<div>
 			<div class="flex items-center">
@@ -45,6 +44,7 @@
 			<EnvelopeOutline class="pointer-events-none mr-3 text-gray-400" />
 			<a
 				href="mailto:{data.profileUser.email}"
+				target="_blank"
 				class="text-primary-500 hover:underline dark:text-primary-400">{data.profileUser.email}</a
 			>
 		</div>

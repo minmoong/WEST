@@ -6,17 +6,17 @@
 	import { Spinner } from 'flowbite-svelte';
 
 	const getMeal = async () => {
-		const res = await fetch('/api/neis/get-meal');
+		const res = await fetch('/api/info/get-meal');
 		const meal = (await res.json()).meal;
 		return meal;
 	};
 </script>
 
 <div
-	class="relative max-w-xs break-all rounded-2xl border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
+	class="relative break-all rounded-2xl border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
 >
 	<h1 class="mb-5 text-xl">오늘의 급식 메뉴 🍔</h1>
-	<div class="h-60 space-y-3 overflow-y-auto">
+	<div class="h-60 overflow-y-auto">
 		{#await getMeal()}
 			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
 				<Spinner size="8" />
@@ -29,7 +29,7 @@
 						{#each meal.lunch as data}
 							<div class="font-light">- {data}</div>
 						{:else}
-							<div class="text-center my-7 font-bold dark:text-white">오늘은 중식이 없습니다.</div>
+							<div class="text-center my-7">오늘은 중식이 없습니다.</div>
 						{/each}
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 						{#each meal.dinner as data}
 							<div class="font-light">- {data}</div>
 						{:else}
-							<div class="text-center my-7 font-bold dark:text-white">오늘은 석식이 없습니다.</div>
+							<div class="text-center my-7">오늘은 석식이 없습니다.</div>
 						{/each}
 					</div>
 				</div>
