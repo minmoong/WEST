@@ -30,7 +30,7 @@
 	<title>대나무숲</title>
 </svelte:head>
 
-<div class="h-full w-full max-w-xl">
+<div class="h-full w-full">
 	<Button size="sm" href="/protected/bamboo/write" color="light" class="mb-4">글쓰기</Button>
 	<div class="mb-6 space-y-2">
 		{#each $posts.data as postData}

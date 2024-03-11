@@ -20,7 +20,9 @@
 		ChartBars3FromLeftSolid,
 		CogOutline,
 		ArrowRightToBracketOutline,
-		InfoCircleOutline
+		InfoCircleOutline,
+		HomeSolid,
+		UserGroupSolid
 	} from 'flowbite-svelte-icons';
 	import { UserRoleBadge, UserProfileAvatar } from '.';
 	import type { User } from '@prisma/client';
@@ -35,19 +37,13 @@
 		pages: [
 			{
 				href: '/protected',
-				label: '홈'
-			},
-			{
-				href: '/protected/timetable',
-				label: '시간표'
+				label: '홈',
+				icon: HomeSolid
 			},
 			{
 				href: '/protected/bamboo',
-				label: '대나무숲'
-			},
-			{
-				href: '/protected/gallery',
-				label: '갤러리'
+				label: '대나무숲',
+				icon: UserGroupSolid
 			}
 		],
 		// 설정 컨트롤 메뉴
@@ -100,7 +96,7 @@
 	{backdrop}
 	bind:hidden
 	width="w-fit"
-	class="border-gray-300 p-0 dark:border-gray-700 lg:border-e"
+	class="p-0 dark:border-gray-700 lg:border-e"
 >
 	<Sidebar {activeUrl}>
 		<SidebarWrapper class="bg-white p-5">
@@ -116,7 +112,7 @@
 					<div
 						class="self-center {user.username.length >= 8
 							? 'text-base'
-							: 'text-lg'} break-all font-bold dark:text-white"
+							: 'text-lg'} break-all dark:text-white"
 					>
 						{user.username}
 					</div>
@@ -125,18 +121,23 @@
 			</a>
 			<!-- 페이지 메뉴 -->
 			<SidebarGroup>
-				{#each routes.pages as { href, label }}
+				{#each routes.pages as { href, label, icon }}
 					<SidebarItem
 						{href}
 						{label}
-						activeClass="flex items-center p-2 text-base font-normal text-white bg-primary-400 rounded-lg"
-					/>
+						class="transition-colors"
+						activeClass="[&>svg]:!text-primary-500 flex items-center p-2 text-base font-normal text-primary-500 bg-gray-100 dark:bg-gray-700 rounded-lg dark:text-primary-400"
+					>
+						<svelte:fragment slot="icon">
+							<svelte:component this={icon} class="text-gray-500 dark:text-white" />
+						</svelte:fragment>
+					</SidebarItem>
 				{/each}
 			</SidebarGroup>
 			<!-- 설정 컨트롤 메뉴 -->
 			<SidebarGroup border>
 				{#each routes.settings as { href, label, icon, linkOptions }}
-					<SidebarItem {href} {label} {...linkOptions}>
+					<SidebarItem {href} {label} {...linkOptions} class="transition-colors">
 						<svelte:fragment slot="icon">
 							<svelte:component this={icon} class="text-gray-500 dark:text-white" />
 						</svelte:fragment>
@@ -146,7 +147,7 @@
 			<!-- 기타 메뉴 -->
 			<SidebarGroup border>
 				{#each routes.others as { href, label, icon, linkOptions }}
-					<SidebarItem {href} {label} {...linkOptions}>
+					<SidebarItem {href} {label} {...linkOptions} class="transition-colors">
 						<svelte:fragment slot="icon">
 							<svelte:component this={icon} class="text-gray-500 dark:text-white" />
 						</svelte:fragment>
