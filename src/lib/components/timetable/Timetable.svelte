@@ -14,7 +14,7 @@
 	let activePeriod = getActivePeriod();
 
 	const interval = setInterval(() => {
-		activePeriod = 2;
+		activePeriod = getActivePeriod();
 	}, 1000);
 
 	onDestroy(() => {
