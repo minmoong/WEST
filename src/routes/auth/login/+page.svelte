@@ -33,11 +33,11 @@
 <div class="flex h-full flex-col items-center justify-center">
 	<div class="mb-6 flex">
 		<img src={logo} class="mr-3 h-7 md:h-8" alt="로고" />
-		<div class="pr-7 text-xl font-bold text-primary-500 md:text-2xl">SDJ-IN</div>
+		<div class="pr-7 text-xl font-bold text-primary-500 md:text-2xl">WEST</div>
 	</div>
 	<div class="w-full max-w-xs space-y-4">
 		<h1 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white md:text-xl">
-			SDJ-IN 계정으로 로그인
+			WEST 계정으로 로그인
 		</h1>
 		<form method="POST" spellcheck="false" class="space-y-4" use:enhance={submitFunction}>
 			<Input type="text" name="username" placeholder="아이디" required>

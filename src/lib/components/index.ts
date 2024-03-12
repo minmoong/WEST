@@ -4,6 +4,7 @@ export { default as Sidebar } from './Sidebar.svelte';
 export { default as SnowflakeLayer } from './SnowflakeLayer.svelte';
 export { default as Timetable } from './timetable/Timetable.svelte';
 export { default as UserRoleBadge } from './UserRoleBadge.svelte';
+export { default as Bamboo } from './bamboo/Bamboo.svelte';
 export { default as BambooListItem } from './bamboo/BambooListItem.svelte';
 export { default as BambooCommentItem } from './bamboo/BambooCommentItem.svelte';
 export { default as GoBackButton } from './GoBackButton.svelte';

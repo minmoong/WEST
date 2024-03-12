@@ -3,6 +3,7 @@
 	홈 페이지에서 보여주는 오늘 우리반 시간표 컴포넌트입니다.
 -->
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { onDestroy } from 'svelte';
 	import { Spinner } from 'flowbite-svelte';
 	import { getActivePeriod } from '$lib/utils/tools';
@@ -36,16 +37,16 @@
 </script>
 
 <div
-	class="relative break-all rounded-2xl border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
+	class="relative break-all rounded-lg border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
 >
-	<h1 class="mb-5 text-xl">{grade}학년 {klass}반 시간표 📅</h1>
+	<h1 class="mb-5 text-xl">{grade}학년 {klass}반 시간표 ⌛</h1>
 	<div class="h-60 overflow-y-auto">
 		{#await getTimetable(grade, klass)}
 			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
 				<Spinner size="8" />
 			</div>
 		{:then timetable}
-			<div class="space-y-2">
+			<div class="space-y-2" transition:fade>
 				{#each timetable as { subject, teacher }, index}
 					{#if index != 7}
 						<div

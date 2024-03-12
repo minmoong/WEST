@@ -3,8 +3,8 @@ import { prisma } from '$lib/server/prisma';
 
 const TAKES_BY_ONE_REQUEST = 15;
 
-export const POST = async ({ request }) => {
-	const { pageNumber } = await request.json();
+export const GET = async ({ url }) => {
+	const pageNumber = Number(url.searchParams.get('page-number'));
 
 	const posts = await prisma.post.findMany({
 		select: {

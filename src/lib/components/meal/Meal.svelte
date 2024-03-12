@@ -3,6 +3,7 @@
 	홈 페이지에서 보여주는 오늘 급식 정보 컴포넌트입니다.
 -->
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { Spinner } from 'flowbite-svelte';
 	import { formatDate } from '$lib/utils/tools';
 
@@ -20,7 +21,7 @@
 </script>
 
 <div
-	class="relative break-all rounded-2xl border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
+	class="relative break-all rounded-lg border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
 >
 	<h1 class="mb-5 text-xl">오늘의 급식 메뉴 🍔</h1>
 	<div class="h-60 overflow-y-auto">
@@ -29,7 +30,7 @@
 				<Spinner size="8" />
 			</div>
 		{:then meal}
-			<div class="space-y-5">
+			<div class="space-y-5" transition:fade>
 				<div>
 					<div class="mb-2 text-lg">중식🍴</div>
 					<div>

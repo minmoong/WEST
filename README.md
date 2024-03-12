@@ -1,12 +1,12 @@
 <img src="./static/favicon.png" width="64" align="left" />
 
-## `SDJ-IN`
+## `WEST`
 
 ## 사이트 소개
 
-**서대전고등학교 인트라넷, SDJ-IN 입니다.** [(사이트 링크)](https://sdj-in.vercel.app/)
+**서대전고등학교 인트라넷, WEST 입니다.** [(사이트 링크)](https://sdj-in.vercel.app/)
 
-[SDJ-IN 사이트 소개 글](https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4)에서 사이트에 대해 자세히 소개하고 있습니다.
+[WEST 사이트 소개 글](https://nice-octave-c60.notion.site/SDJ-IN-8a6edd5f2cc2425a95a4de318b9932c9?pvs=4)에서 사이트에 대해 자세히 소개하고 있습니다.
 
 ## 버그 및 개선 사항 요청
 

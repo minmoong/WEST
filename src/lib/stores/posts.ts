@@ -29,7 +29,7 @@ export const loadNewPosts = async () => {
 /**
  * posts 스토어를 리셋합니다.
  */
-export const resetPostsStore = async () => {
+export const resetPostsStore = () => {
 	posts.set({
 		data: [],
 		pageNumber: 0,
@@ -44,15 +44,11 @@ export const resetPostsStore = async () => {
 const fetchPosts = async (
 	prevValue: PostStoreData
 ): Promise<{ newPosts: PostPreview[]; isFullLoaded: boolean }> => {
-	const body = {
-		pageNumber: prevValue.pageNumber
-	};
-	const init = {
-		method: 'POST',
-		body: JSON.stringify(body)
-	};
+	const params = new URLSearchParams({
+		'page-number': prevValue.pageNumber.toString()
+	});
 
-	const res = await fetch('/api/bamboo/get-posts', init);
+	const res = await fetch(`/api/bamboo/get-posts?${params.toString()}`);
 	const data = await res.json();
 
 	const newPosts = data.posts.map((i: PostPreview) => ({ ...i, createdAt: new Date(i.createdAt) }));
