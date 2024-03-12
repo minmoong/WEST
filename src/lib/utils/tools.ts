@@ -80,13 +80,13 @@ export const getActivePeriod = () => {
 	const minutes = date.getMinutes();
 
 	const timePeriods = [
-		{ start: '8:20', end: '9:19', period: 1 },
-		{ start: '9:20', end: '10:19', period: 2 },
-		{ start: '10:20', end: '11:19', period: 3 },
-		{ start: '11:20', end: '12:19', period: 4 },
-		{ start: '12:20', end: '13:59', period: 5 },
-		{ start: '14:0', end: '14:59', period: 6 },
-		{ start: '15:0', end: '15:59', period: 7 }
+		{ start: '8:10', end: '9:09', period: 1 },
+		{ start: '9:10', end: '10:09', period: 2 },
+		{ start: '10:10', end: '11:09', period: 3 },
+		{ start: '11:10', end: '12:09', period: 4 },
+		{ start: '12:10', end: '13:49', period: 5 },
+		{ start: '13:50', end: '14:49', period: 6 },
+		{ start: '14:50', end: '15:49', period: 7 }
 	];
 
 	for (const period of timePeriods) {
