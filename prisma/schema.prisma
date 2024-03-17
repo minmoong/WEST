@@ -29,6 +29,7 @@ model Post {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
+  anonymous Boolean  @default(false)
   category  String
   title     String
   content   String
@@ -45,6 +46,7 @@ model DeletedPost {
   createdAt  DateTime
   deletedAt  DateTime @default(now())
 
+  anonymous  Boolean  @default(false)
   category   String
   title      String
   content    String
@@ -79,4 +81,5 @@ enum Role {
   TEACHER
   STUDENT_COUNCIL
   ADMIN
+  DEFAULT
 }

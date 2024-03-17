@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Hr } from 'flowbite-svelte';
 	import { EnvelopeOutline } from 'flowbite-svelte-icons';
-	import { UserProfileAvatar } from '$lib/components';
+	import { GoBackButton, UserProfileAvatar } from '$lib/components';
 	import UserRoleBadge from '$lib/components/UserRoleBadge.svelte';
 	import { calculateElapsedTime } from '$lib/utils/tools';
 	import type { PageData } from './$types';
@@ -17,6 +17,7 @@
 	>
 </svelte:head>
 
+<GoBackButton />
 {#if data.profileUser}
 	<div class="h-full w-full max-w-lg space-y-4">
 		<UserProfileAvatar

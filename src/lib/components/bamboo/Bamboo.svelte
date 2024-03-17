@@ -14,7 +14,7 @@
 			'page-number': '0'
 		});
 
-		const res = await fetch(`/api/bamboo/get-posts?${params.toString()}`);
+		const res = await fetch(`/api/bamboo/get-posts-preview?${params.toString()}`);
 		const data = await res.json();
 
 		const posts = data.posts.map((i: PostPreview) => ({ ...i, createdAt: new Date(i.createdAt) }));
@@ -25,7 +25,7 @@
 
 <div class="break-all rounded-lg border bg-white p-5 dark:border-gray-600 dark:bg-gray-700">
 	<div class="flex justify-between">
-		<h1 class="mb-5 text-xl">대나무숲 최신 글 🎍</h1>
+		<a href="/protected/bamboo" class="mb-5 text-xl">대나무숲 최신 글 🎍</a>
 		<Button href="/protected/bamboo/write" color="none" class="h-10 w-10 !p-2 focus-within:ring-0">
 			<PenSolid size="sm" class="pointer-events-none text-gray-500 dark:text-slate-300" />
 		</Button>

@@ -25,6 +25,7 @@ export const POST = async (event) => {
 		data: {
 			id: deletedPost.id,
 			createdAt: deletedPost.createdAt,
+			anonymous: deletedPost.anonymous,
 			category: deletedPost.category,
 			title: deletedPost.title,
 			content: deletedPost.content,

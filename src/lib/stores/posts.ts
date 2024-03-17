@@ -48,7 +48,7 @@ const fetchPosts = async (
 		'page-number': prevValue.pageNumber.toString()
 	});
 
-	const res = await fetch(`/api/bamboo/get-posts?${params.toString()}`);
+	const res = await fetch(`/api/bamboo/get-posts-preview?${params.toString()}`);
 	const data = await res.json();
 
 	const newPosts = data.posts.map((i: PostPreview) => ({ ...i, createdAt: new Date(i.createdAt) }));

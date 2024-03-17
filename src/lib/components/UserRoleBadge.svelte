@@ -12,7 +12,7 @@
 {#if userRole === 'STUDENT'}
 	<Badge color="primary" rounded>학생</Badge>
 {:else if userRole === 'TEACHER'}
-	<Badge color="primary" rounded>선생님</Badge>
+	<Badge color="purple" rounded>선생님</Badge>
 {:else if userRole === 'STUDENT_COUNCIL'}
 	<Badge color="yellow" rounded>학생회</Badge>
 {:else if userRole === 'ADMIN'}

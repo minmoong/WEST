@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Input, Textarea, Alert, Button, Select, Spinner } from 'flowbite-svelte';
+	import { Input, Textarea, Checkbox, Alert, Button, Select, Spinner } from 'flowbite-svelte';
 	import { toastError, toastSuccess } from '$lib/utils/toast';
 	import { resetPostsStore } from '$lib/stores/posts';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -33,23 +33,24 @@
 	<title>글쓰기 • 대나무숲</title>
 </svelte:head>
 
-<div class="h-full w-full max-w-xl">
-	<form method="POST" class="space-y-3" use:enhance={submitFunction}>
-		<h1 class="text-xl font-bold">글쓰기</h1>
+<div class="h-full w-full max-w-xl pt-3 lg:pt-5">
+	<form method="POST" use:enhance={submitFunction}>
+		<h1 class="mb-10 text-2xl font-bold">글쓰기</h1>
 		<Select
 			size="sm"
 			items={categorySelectItems}
 			name="category"
 			placeholder="카테고리"
 			bind:value={selectedCategory}
-			class="w-fit"
+			class="mb-3 w-fit"
 		/>
-		<Input type="text" name="title" placeholder="제목을 입력하세요" />
-		<Textarea rows="12" name="content" placeholder="내용을 입력하세요" />
-		<Alert color="yellow">
+		<Input type="text" name="title" placeholder="제목을 입력하세요" class="mb-3" />
+		<Textarea rows="12" name="content" placeholder="내용을 입력하세요" class="mb-6" />
+		<Alert color="yellow" class="mb-6 text-center">
 			<span class="font-bold">주의!</span>
 			적절하지 않은 내용의 글은 관리자에 의해 예고 없이 삭제될 수 있습니다.
 		</Alert>
+		<Checkbox name="anonymous" class="mb-5 w-fit" checked>익명으로 게시합니다</Checkbox>
 		<Button
 			type="submit"
 			size="sm"

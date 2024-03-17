@@ -111,11 +111,20 @@
 				>
 					{calculateElapsedTime(postData.createdAt)}
 				</div>
-				<div
-					class="ml-2 overflow-hidden overflow-ellipsis before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:before:border-slate-500"
-				>
-					{postData.author?.username ?? '(알 수 없음)'}
-				</div>
+				{#if postData.anonymous || !postData.author?.username}
+					<div
+						class="ml-2 overflow-hidden overflow-ellipsis before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:before:border-slate-500"
+					>
+						{postData.author?.username ?? '(알 수 없음)'}
+					</div>
+				{:else}
+					<a
+						href="/protected/profile/{postData.author.username}"
+						class="ml-2 overflow-hidden overflow-ellipsis before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:before:border-slate-500"
+					>
+						{postData.author.username}
+					</a>
+				{/if}
 			</div>
 			<div>
 				조회수 {postData.views}

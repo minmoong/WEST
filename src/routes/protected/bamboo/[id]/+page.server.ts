@@ -26,6 +26,14 @@ export const load = async ({ params }) => {
 		}
 	});
 
+	if (post) {
+		if (post.anonymous) {
+			if (post.author?.username) {
+				post.author.username = '(익명)';
+			}
+		}
+	}
+
 	return { post };
 };
 
