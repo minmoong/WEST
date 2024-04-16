@@ -4,7 +4,7 @@
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
 	// import { inject } from '@vercel/analytics';
-	import { SnowflakeLayer } from '$lib/components';
+	import { Cherryblossom } from '$lib/components';
 	import { printLogo } from '$lib/utils/tools';
 
 	// inject({ mode: dev ? 'development' : 'production' });
@@ -16,6 +16,6 @@
 
 <SvelteToast />
 <ProgressBar class="text-primary-400 dark:text-primary-500" zIndex={60} />
-<SnowflakeLayer />
+<Cherryblossom />
 
 <slot />
