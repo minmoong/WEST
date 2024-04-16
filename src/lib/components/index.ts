@@ -1,7 +1,8 @@
 export { default as Meal } from './meal/Meal.svelte';
 export { default as PasscodeEmailTemplate } from './PasscodeEmailTemplate.svelte';
 export { default as Sidebar } from './Sidebar.svelte';
-export { default as SnowflakeLayer } from './SnowflakeLayer.svelte';
+export { default as Snowflake } from './background-effect/Snowflake.svelte';
+export { default as Cherryblossom } from './background-effect/Cherryblossom.svelte';
 export { default as Timetable } from './timetable/Timetable.svelte';
 export { default as UserRoleBadge } from './UserRoleBadge.svelte';
 export { default as Bamboo } from './bamboo/Bamboo.svelte';
