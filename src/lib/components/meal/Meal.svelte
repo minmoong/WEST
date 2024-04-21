@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { Spinner } from 'flowbite-svelte';
-	import { formatDate } from '$lib/utils/tools';
+	import { formatDate, getRandomNumberInRange } from '$lib/utils/tools';
 
 	const getMeal = async () => {
 		const params = new URLSearchParams({
@@ -18,12 +18,14 @@
 
 		return meal;
 	};
+
+	const keywords = ['급식 메뉴 🍔', '엄준식 🎩', '맛도리(?)', '삶의 이유'];
 </script>
 
 <div
 	class="relative break-all rounded-lg border bg-white p-5 dark:border-gray-600 dark:bg-gray-700"
 >
-	<h1 class="mb-5 text-xl">오늘의 급식 메뉴 🍔</h1>
+	<h1 class="mb-5 text-xl">오늘의 {keywords[getRandomNumberInRange(0, 3)]}</h1>
 	<div class="h-60 overflow-y-auto">
 		{#await getMeal()}
 			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

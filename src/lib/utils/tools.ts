@@ -26,7 +26,7 @@ export const getRoleFromEmail = (email: string): Role => {
 };
 
 /**
- * 최솟값과 최댓값 사이의 난수를 생성합니다.
+ * 최솟값과 최댓값을 포함하여 난수를 생성합니다.
  */
 export const getRandomNumberInRange = (min: number, max: number) => {
 	return Math.floor(Math.random() * (max - min + 1) + min);
