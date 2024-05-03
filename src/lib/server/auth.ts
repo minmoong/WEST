@@ -11,11 +11,11 @@ import type { JwtPayload } from 'jsonwebtoken';
 import type { Role } from '@prisma/client';
 
 /**
- * username으로 JWT 토큰을 만들어 반환합니다.
+ * 사용자의 id 값으로 JWT 토큰을 만들어 반환합니다.
  */
-const createJwt = (username: string) => {
+const createJwt = (id: number) => {
 	const payload = {
-		username
+		id
 	};
 	const options = {
 		expiresIn: '7d'
@@ -86,7 +86,7 @@ export const login = async (username: string, password: string) => {
 		return { message: '비밀번호가 일치하지 않습니다.' };
 	}
 
-	const jwt = createJwt(user.username);
+	const jwt = createJwt(user.id);
 
 	return { success: true, token: jwt };
 };
@@ -109,7 +109,7 @@ export const authUser = async (cookies: Cookies) => {
 	const payload = jwt.verify(token, JWT_SECRET_KEY) as JwtPayload;
 
 	const user = await prisma.user.findUnique({
-		where: { username: payload.username }
+		where: { id: payload.id }
 	});
 
 	return user;
