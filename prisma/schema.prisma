@@ -17,7 +17,6 @@ model User {
   role      Role     @default(STUDENT)
   grade     Int
   class     Int
-  active    Boolean
   bio       String?
   club      String?
 

@@ -61,8 +61,7 @@ export const register = async (user: {
 			email: user.email,
 			grade: user.grade,
 			class: user.class,
-			role: user.role,
-			active: false
+			role: user.role
 		}
 	});
 
