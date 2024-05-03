@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { Button, Hr } from 'flowbite-svelte';
 	import { EnvelopeOutline } from 'flowbite-svelte-icons';
 	import { GoBackButton, UserProfileAvatar } from '$lib/components';
@@ -19,9 +20,9 @@
 
 <GoBackButton />
 {#if data.profileUser}
-	<div class="h-full w-full max-w-lg space-y-4">
-		<UserProfileAvatar size="xl" />
-		<div>
+	<div class="h-full w-full max-w-lg">
+		<UserProfileAvatar size="xl" class="mb-5" />
+		<div class="mb-7">
 			<div class="flex items-center">
 				<div class="mr-2 text-2xl font-bold">{data.profileUser.username}</div>
 				<div><UserRoleBadge userRole={data.profileUser.role} /></div>
@@ -32,12 +33,16 @@
 					: ''}
 			</div>
 		</div>
-		<div>{data.profileUser?.bio ?? ''}</div>
+		{#if data.profileUser.bio}
+			<div class="mb-7">{data.profileUser.bio}</div>
+		{/if}
 		{#if data.isMyProfile}
-			<Button color="alternative" size="sm">프로필 수정</Button>
+			<Button color="alternative" size="sm" on:click={() => goto('/protected/profile/edit')}
+				>프로필 수정</Button
+			>
 		{/if}
 		<Hr />
-		<div class="flex items-center">
+		<div class="mb-2 flex items-center">
 			<EnvelopeOutline class="pointer-events-none mr-3 text-gray-400" />
 			<a
 				href="mailto:{data.profileUser.email}"
