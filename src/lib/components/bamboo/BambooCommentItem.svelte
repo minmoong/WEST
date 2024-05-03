@@ -7,20 +7,15 @@
 	import { UserProfileAvatar } from '$lib/components';
 	import type { PostComment } from '$lib/types/bamboo/post';
 
-	export let userId: number;
 	export let commentData: PostComment;
 </script>
 
 <div class="flex">
 	{#if commentData.author}
-		<UserProfileAvatar
-			active={userId === commentData.author.id ? true : commentData.author.active}
-			class="mr-3"
-		/>
+		<UserProfileAvatar class="mr-3" />
 	{:else}
 		<UserProfileAvatar
 			imgUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
-			active={false}
 			class="mr-3"
 		/>
 	{/if}

@@ -15,6 +15,5 @@ export type PostComment = {
 	author: {
 		id: number;
 		username: string;
-		active: boolean;
 	} | null;
 };

@@ -20,11 +20,7 @@
 <GoBackButton />
 {#if data.profileUser}
 	<div class="h-full w-full max-w-lg space-y-4">
-		<UserProfileAvatar
-			size="xl"
-			dotSize="xl"
-			active={data.isMyProfile ? true : data.profileUser.active}
-		/>
+		<UserProfileAvatar size="xl" />
 		<div>
 			<div class="flex items-center">
 				<div class="mr-2 text-2xl font-bold">{data.profileUser.username}</div>

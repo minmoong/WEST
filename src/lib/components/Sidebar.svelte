@@ -107,7 +107,7 @@
 				href="/protected/profile/{user.username}"
 				class="mb-7 flex items-center rounded-lg py-1 pl-2 hover:bg-gray-100 hover:dark:bg-gray-700"
 			>
-				<UserProfileAvatar active={true} class="mr-3" />
+				<UserProfileAvatar class="mr-3" />
 				<div>
 					<div
 						class="self-center {user.username.length >= 8
