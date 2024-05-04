@@ -12,6 +12,7 @@ export const load = async ({ params }) => {
 			},
 			comment: {
 				select: {
+					id: true,
 					createdAt: true,
 					content: true,
 					author: {
@@ -57,6 +58,7 @@ export const actions = {
 					}
 				},
 				select: {
+					id: true,
 					createdAt: true,
 					content: true,
 					author: {

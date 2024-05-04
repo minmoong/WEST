@@ -10,6 +10,7 @@ export type PostPreview = {
 };
 
 export type PostComment = {
+	id: number;
 	createdAt: Date;
 	content: string;
 	author: {

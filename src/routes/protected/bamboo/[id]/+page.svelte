@@ -2,12 +2,12 @@
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import { Button, ButtonGroup, Dropdown, DropdownItem, Hr, Input, Spinner } from 'flowbite-svelte';
-	import { DotsHorizontalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
+	import { DotsVerticalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import { calculateElapsedTime } from '$lib/utils/tools';
-	import { toastError, toastSuccess } from '$lib/utils/toast';
+	import { toastError } from '$lib/utils/toast';
 	import { resetPostsStore } from '$lib/stores/posts';
-	import { GoBackButton, BambooCommentItem, UserProfileAvatar } from '$lib/components';
+	import { GoBackButton, UserProfileAvatar } from '$lib/components';
 	import type { PageData } from './$types';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
@@ -31,7 +31,7 @@
 		}
 	});
 
-	const onDeleteButtonClicked = async () => {
+	const onPostDeleteButtonClicked = async () => {
 		if (postData) {
 			const requestData = { postId: postData.id };
 			const res = await fetch('/api/bamboo/delete-post', {
@@ -42,11 +42,27 @@
 
 			if (success) {
 				resetPostsStore();
-				toastSuccess('글을 삭제하였습니다.');
 				goto('/protected/bamboo');
 			} else {
 				toastError('글 삭제에 실패하였습니다. 나중에 다시 시도해 주세요.');
 			}
+		}
+	};
+
+	const onCommentDeleteButtonClicked = async (commentId: number) => {
+		const requestData = { commentId };
+		const res = await fetch('/api/bamboo/delete-comment', {
+			method: 'POST',
+			body: JSON.stringify(requestData)
+		});
+		const { success } = await res.json();
+
+		if (success) {
+			if (postData?.comment) {
+				postData.comment = postData.comment.filter((c) => c.id !== commentId);
+			}
+		} else {
+			toastError('댓글 삭제에 실패하였습니다. 나중에 다시 시도해 주세요.');
 		}
 	};
 
@@ -82,8 +98,8 @@
 			<div class="mb-4 text-xl font-bold">{postData.title}</div>
 			{#if data.user.id === postData.authorId}
 				<div>
-					<Button pill={true} color="alternative" class="!p-2">
-						<DotsHorizontalOutline
+					<Button color="none" class="!p-2">
+						<DotsVerticalOutline
 							size="sm"
 							class="pointer-events-none h-4 w-4 text-gray-500 dark:text-gray-400"
 						/>
@@ -91,7 +107,7 @@
 					<Dropdown>
 						<DropdownItem
 							class="flex text-red-500 dark:text-red-400"
-							on:click={onDeleteButtonClicked}
+							on:click={onPostDeleteButtonClicked}
 						>
 							삭제
 							<TrashBinSolid
@@ -138,6 +154,7 @@
 		<!-- 댓글 영역 -->
 		<div class="mt-10">
 			<h1 class="mb-6 text-lg font-bold">댓글 {postData.comment.length}개</h1>
+			<!-- 댓글 입력칸 -->
 			<div class="mb-8 flex items-center">
 				<UserProfileAvatar size="sm" dotSize="md" class="mr-3" />
 				<form
@@ -167,9 +184,53 @@
 					</ButtonGroup>
 				</form>
 			</div>
+			<!-- 댓글들 -->
 			<div class="space-y-7">
 				{#each postData.comment as commentData}
-					<BambooCommentItem {commentData} />
+					<div class="flex justify-between">
+						<div class="flex">
+							{#if commentData.author}
+								<UserProfileAvatar class="mr-3" />
+							{:else}
+								<UserProfileAvatar
+									imgUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+									class="mr-3"
+								/>
+							{/if}
+							<div>
+								<div class="flex text-sm">
+									<div class="mr-2">{commentData.author?.username ?? '(알 수 없음)'}</div>
+									<div class="text-gray-500 dark:text-gray-400">
+										{calculateElapsedTime(commentData.createdAt)}
+									</div>
+								</div>
+								<div>{commentData.content}</div>
+							</div>
+						</div>
+						<div>
+							{#if commentData.author?.id === data.user.id}
+								<div>
+									<Button color="none" class="!p-2">
+										<DotsVerticalOutline
+											size="sm"
+											class="pointer-events-none h-4 w-4 text-gray-500 dark:text-gray-400"
+										/>
+									</Button>
+									<Dropdown>
+										<DropdownItem
+											class="flex text-red-500 dark:text-red-400"
+											on:click={() => onCommentDeleteButtonClicked(commentData.id)}
+										>
+											삭제
+											<TrashBinSolid
+												class="pointer-events-none ml-2 mt-[2px] h-4 w-4 text-red-500 dark:text-red-400"
+											/>
+										</DropdownItem>
+									</Dropdown>
+								</div>
+							{/if}
+						</div>
+					</div>
 				{/each}
 			</div>
 		</div>
