@@ -13,7 +13,7 @@
 <div
 	class="flex w-full rounded-lg border bg-white p-3 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
 >
-	<a href={`/protected/bamboo/${postData.id}`} class="block w-full">
+	<a href="/protected/bamboo/{postData.id}" class="block w-full">
 		<div class="flex w-full">
 			<div class="mr-2 flex w-10 shrink-0 flex-col items-center justify-center">
 				<div>

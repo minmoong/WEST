@@ -10,6 +10,13 @@
 	export let imgUrl =
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png';
 	export let size: Size = 'md';
+	export let userId: number | undefined = undefined;
 </script>
 
-<Avatar {...$$restProps} src={imgUrl} {size} class="shrink-0 {$$props.class}" />
+<Avatar
+	{...$$restProps}
+	src={imgUrl}
+	{size}
+	href={userId ? `/protected/profile/${userId}` : ''}
+	class="shrink-0 {$$props.class}"
+/>

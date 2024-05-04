@@ -135,8 +135,8 @@
 					</div>
 				{:else}
 					<a
-						href="/protected/profile/{postData.author.username}"
-						class="ml-2 overflow-hidden overflow-ellipsis before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:before:border-slate-500"
+						href="/protected/profile/{postData.authorId}"
+						class="ml-2 overflow-hidden overflow-ellipsis text-primary-500 underline before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:text-primary-300 dark:before:border-slate-500"
 					>
 						{postData.author.username}
 					</a>
@@ -190,7 +190,7 @@
 					<div class="flex justify-between">
 						<div class="flex">
 							{#if commentData.author}
-								<UserProfileAvatar class="mr-3" />
+								<UserProfileAvatar class="mr-3" userId={commentData.author.id} />
 							{:else}
 								<UserProfileAvatar
 									imgUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
