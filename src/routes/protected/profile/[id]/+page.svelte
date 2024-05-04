@@ -42,10 +42,10 @@
 <GoBackButton />
 {#if data.profileUser}
 	<div class="h-full w-full max-w-lg">
-		<UserProfileAvatar size="xl" class="mb-5" />
+		<UserProfileAvatar size="xl" class="mx-auto mb-5 md:mx-0" />
 
 		{#if isProfileEditMode}
-			<form method="POST" class="w-full" spellcheck="false" use:enhance={submitFunction}>
+			<form method="POST" class="w-full lg:w-1/2" spellcheck="false" use:enhance={submitFunction}>
 				<div class="mb-5 space-y-4">
 					<div>
 						<Label for="username" class="mb-2">아이디</Label>
@@ -85,12 +85,12 @@
 				</div>
 			</form>
 		{:else}
-			<div class="mb-7">
-				<div class="flex items-center">
+			<div class="mx-auto mb-7">
+				<div class="flex items-center justify-center md:justify-normal">
 					<div class="mr-2 text-2xl font-bold">{data.profileUser.username}</div>
 					<div><UserRoleBadge userRole={data.profileUser.role} /></div>
 				</div>
-				<div>
+				<div class="text-center md:text-left">
 					{data.profileUser.grade}학년 {data.profileUser.class}반 {data.profileUser.role ===
 					'TEACHER'
 						? '선생님'
@@ -98,12 +98,14 @@
 				</div>
 			</div>
 			{#if data.profileUser.bio}
-				<div class="mb-7">{data.profileUser.bio}</div>
+				<div class="mb-7 text-center md:text-left">{data.profileUser.bio}</div>
 			{/if}
 			{#if data.isMyProfile}
-				<Button color="alternative" size="sm" on:click={() => (isProfileEditMode = true)}
-					>프로필 수정</Button
-				>
+				<div class="flex justify-center md:justify-normal">
+					<Button color="alternative" size="sm" on:click={() => (isProfileEditMode = true)}
+						>프로필 수정</Button
+					>
+				</div>
 			{/if}
 		{/if}
 
