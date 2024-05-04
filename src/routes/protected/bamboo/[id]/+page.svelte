@@ -1,7 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
-	import { Button, ButtonGroup, Dropdown, DropdownItem, Hr, Input, Spinner } from 'flowbite-svelte';
+	import {
+		Button,
+		ButtonGroup,
+		Checkbox,
+		Dropdown,
+		DropdownItem,
+		Hr,
+		Input,
+		Spinner
+	} from 'flowbite-svelte';
 	import { DotsVerticalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import { calculateElapsedTime } from '$lib/utils/tools';
@@ -17,6 +26,7 @@
 
 	let comment: string = '';
 	let isCommenting = false;
+	let isChecked = true;
 
 	onMount(async () => {
 		if (postData) {
@@ -66,8 +76,15 @@
 		}
 	};
 
-	const submitFunction: SubmitFunction = () => {
+	const submitFunction: SubmitFunction = ({ formData }) => {
 		isCommenting = true;
+
+		// form 태그 밖에 checkbox가 있기 때문에
+		// submit시에 checkbox 수동으로 데이터를 추가해줘야 한다.
+		// checkbox를 form 태그 밖에 둔 이유는, submit시에 자동으로 checkbox가 비활성화되는 것을 피하기 위함임.
+		if (isChecked) {
+			formData.append('anonymous', 'on');
+		}
 
 		return async ({ result, update }) => {
 			await update();
@@ -155,41 +172,43 @@
 		<div class="mt-10">
 			<h1 class="mb-6 text-lg font-bold">댓글 {postData.comment.length}개</h1>
 			<!-- 댓글 입력칸 -->
-			<div class="mb-8 flex items-center">
+			<div class="mb-8 flex">
 				<UserProfileAvatar size="sm" dotSize="md" class="mr-3" />
-				<form
-					method="POST"
-					action="?/upload-comment"
-					spellcheck="false"
-					autocomplete="off"
-					class="w-full"
-					use:enhance={submitFunction}
-				>
-					<ButtonGroup class="w-full">
-						<Input name="comment" placeholder="댓글 추가..." bind:value={comment} />
-						<Button
-							type="submit"
-							color="primary"
-							disabled={isCommenting}
-							class="{isCommenting
-								? 'cursor-default'
-								: 'cursor-pointer'} whitespace-nowrap bg-primary-400 text-white hover:bg-primary-500 hover:text-white dark:bg-primary-400 dark:hover:bg-primary-500"
-						>
-							{#if isCommenting}
-								<Spinner size="5" bg="dark:text-white" />
-							{:else}
-								댓글
-							{/if}
-						</Button>
-					</ButtonGroup>
-				</form>
+				<div class="w-full">
+					<form
+						method="POST"
+						action="?/upload-comment"
+						spellcheck="false"
+						autocomplete="off"
+						use:enhance={submitFunction}
+					>
+						<ButtonGroup class="mb-3 w-full">
+							<Input name="comment" placeholder="댓글 추가..." bind:value={comment} class="py-1" />
+							<Button
+								type="submit"
+								color="primary"
+								disabled={isCommenting}
+								class="{isCommenting
+									? 'cursor-default'
+									: 'cursor-pointer'} whitespace-nowrap bg-primary-400 text-white hover:bg-primary-500 hover:text-white dark:bg-primary-400 dark:hover:bg-primary-500"
+							>
+								{#if isCommenting}
+									<Spinner size="5" bg="dark:text-white" />
+								{:else}
+									댓글
+								{/if}
+							</Button>
+						</ButtonGroup>
+					</form>
+					<Checkbox class="whitespace-nowrap" bind:checked={isChecked}>익명 댓글</Checkbox>
+				</div>
 			</div>
 			<!-- 댓글들 -->
 			<div class="space-y-7">
 				{#each postData.comment as commentData}
 					<div class="flex justify-between">
 						<div class="flex">
-							{#if commentData.author}
+							{#if commentData.author?.id}
 								<UserProfileAvatar class="mr-3" userId={commentData.author.id} />
 							{:else}
 								<UserProfileAvatar
@@ -199,7 +218,12 @@
 							{/if}
 							<div>
 								<div class="flex text-sm">
-									<div class="mr-2">{commentData.author?.username ?? '(알 수 없음)'}</div>
+									{#if commentData.anonymous || !commentData.author?.username}
+										<div class="mr-2">{commentData.author?.username ?? '(알 수 없음)'}</div>
+									{:else}
+										<div class="mr-2">{commentData.author.username}</div>
+									{/if}
+
 									<div class="text-gray-500 dark:text-gray-400">
 										{calculateElapsedTime(commentData.createdAt)}
 									</div>
