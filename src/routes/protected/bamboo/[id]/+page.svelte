@@ -208,7 +208,7 @@
 				{#each postData.comment as commentData}
 					<div class="flex justify-between">
 						<div class="flex">
-							{#if commentData.author?.id}
+							{#if !commentData.anonymous && commentData.author?.id}
 								<UserProfileAvatar class="mr-3" userId={commentData.author.id} />
 							{:else}
 								<UserProfileAvatar
