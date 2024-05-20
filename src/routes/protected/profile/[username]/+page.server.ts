@@ -3,12 +3,12 @@ import { prisma } from '$lib/server/prisma';
 import type { User } from '@prisma/client';
 
 export const load = async (event) => {
-	const id = +event.params.id;
+	const username = event.params.username;
 
-	if (!id) return { profileUser: null };
+	if (!username) return { profileUser: null };
 
 	const profileUser = await prisma.user.findUnique({
-		where: { id }
+		where: { username }
 	});
 
 	const isMyProfile = event.locals.user?.id === profileUser?.id;

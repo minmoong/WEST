@@ -49,7 +49,7 @@
 		// 설정 컨트롤 메뉴
 		settings: [
 			{
-				href: `/protected/profile/${user.id}`,
+				href: `/protected/profile/${user.username}`,
 				label: '프로필 설정',
 				icon: CogOutline
 			},
@@ -104,7 +104,7 @@
 				<CloseButton on:click={() => (hidden = true)} class="m-0 ml-auto text-gray-500" />
 			</div>
 			<a
-				href="/protected/profile/{user.id}"
+				href="/protected/profile/{user.username}"
 				class="mb-7 flex items-center rounded-lg py-1 pl-2 hover:bg-gray-100 hover:dark:bg-gray-700"
 			>
 				<UserProfileAvatar class="mr-3" />
