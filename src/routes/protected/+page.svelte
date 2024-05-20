@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Bamboo, Meal, Timetable } from '$lib/components';
+	import { Bamboo, Meal, Timetable, BambooRecentComments } from '$lib/components';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -16,5 +16,8 @@
 	</div>
 	<div>
 		<Bamboo />
+	</div>
+	<div>
+		<BambooRecentComments />
 	</div>
 </div>
