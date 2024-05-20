@@ -24,9 +24,13 @@
 		};
 	};
 
-	let categorySelectItems = [{ value: '자유', name: '자유 글' }];
+	let categorySelectItems = [
+		{ value: '🗨️ 잡담', name: '🗨️ 잡담' },
+		{ value: '🎮 게임', name: '🎮 게임' },
+		{ value: '📖 공부', name: '📖 공부' }
+	];
 
-	let selectedCategory = '자유';
+	let selectedCategory = '🗨️ 잡담';
 </script>
 
 <svelte:head>

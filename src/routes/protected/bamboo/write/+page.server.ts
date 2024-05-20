@@ -34,6 +34,7 @@ export const actions = {
 				data: {
 					anonymous,
 					category,
+					grade: locals.user.grade,
 					title,
 					content,
 					author: {
