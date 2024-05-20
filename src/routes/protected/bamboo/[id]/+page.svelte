@@ -13,7 +13,7 @@
 	} from 'flowbite-svelte';
 	import { DotsVerticalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
-	import { calculateElapsedTime } from '$lib/utils/tools';
+	import { calculateElapsedTime, formatDatetime } from '$lib/utils/tools';
 	import { toastError } from '$lib/utils/toast';
 	import { resetPostsStore } from '$lib/stores/posts';
 	import { GoBackButton, UserProfileAvatar } from '$lib/components';
@@ -142,7 +142,7 @@
 				<div
 					class="ml-2 before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:before:border-slate-500"
 				>
-					{calculateElapsedTime(postData.createdAt)}
+					{formatDatetime(postData.createdAt)}
 				</div>
 				{#if postData.anonymous || !postData.author?.username}
 					<div

@@ -45,6 +45,20 @@ export const formatDate = (date: Date, delimiter: string = '') => {
 };
 
 /**
+ * 년, 월, 일, 시, 분, 초 정보를 문자열 형태로 반환합니다.
+ */
+export const formatDatetime = (date: Date, d1: string = '.', d2: string = ':') => {
+	const year = date.getFullYear();
+	const month = ('0' + (date.getMonth() + 1)).slice(-2);
+	const day = ('0' + date.getDate()).slice(-2);
+	const hour = ('0' + date.getHours()).slice(-2);
+	const minute = ('0' + date.getMinutes()).slice(-2);
+	const second = ('0' + date.getSeconds()).slice(-2);
+
+	return [[year, month, day].join(d1), [hour, minute, second].join(d2)].join(' ');
+};
+
+/**
  * 웹 사이트 접속 시 콘솔에 메시지를 출력합니다.
  */
 export const printLogo = () => {
