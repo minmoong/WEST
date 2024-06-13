@@ -113,7 +113,8 @@
 		<!-- 제목 영역 -->
 		<div class="flex justify-between">
 			<div class="mb-4 text-xl font-bold">{postData.title}</div>
-			{#if data.user.id === postData.authorId}
+			<!-- TODO: issue -->
+			<!-- {#if data.user.id === postData.authorId}
 				<div>
 					<Button color="none" class="!p-2">
 						<DotsVerticalOutline
@@ -133,7 +134,7 @@
 						</DropdownItem>
 					</Dropdown>
 				</div>
-			{/if}
+			{/if} -->
 		</div>
 		<!-- 내용 영역 -->
 		<div class="flex justify-between whitespace-nowrap">

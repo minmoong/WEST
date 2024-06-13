@@ -37,7 +37,11 @@
 	<title>글쓰기 • 대나무숲</title>
 </svelte:head>
 
-<div class="h-full w-full max-w-xl pt-3 lg:pt-5">
+<div class="mb-4 text-xl font-bold">
+	일시적인 문제로 인해 당분간 글쓰기 기능을 이용하실 수 없습니다.
+</div>
+<!-- TODO: issue -->
+<!-- <div class="h-full w-full max-w-xl pt-3 lg:pt-5">
 	<form method="POST" use:enhance={submitFunction}>
 		<h1 class="mb-10 text-2xl font-bold">글쓰기</h1>
 		<Select
@@ -70,4 +74,4 @@
 			{/if}
 		</Button>
 	</form>
-</div>
+</div> -->
