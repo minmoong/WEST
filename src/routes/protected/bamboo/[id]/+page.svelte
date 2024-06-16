@@ -113,8 +113,7 @@
 		<!-- 제목 영역 -->
 		<div class="flex justify-between">
 			<div class="mb-4 text-xl font-bold">{postData.title}</div>
-			<!-- TODO: issue -->
-			<!-- {#if data.user.id === postData.authorId}
+			{#if data.user.id === postData.authorId}
 				<div>
 					<Button color="none" class="!p-2">
 						<DotsVerticalOutline
@@ -134,7 +133,7 @@
 						</DropdownItem>
 					</Dropdown>
 				</div>
-			{/if} -->
+			{/if}
 		</div>
 		<!-- 내용 영역 -->
 		<div class="flex justify-between whitespace-nowrap">
@@ -185,11 +184,10 @@
 					>
 						<ButtonGroup class="mb-3 w-full">
 							<Input name="comment" placeholder="댓글 추가..." bind:value={comment} class="py-1" />
-							<!-- TODO: issue disabled={isCommenting} -->
 							<Button
 								type="submit"
 								color="primary"
-								disabled={true}
+								disabled={isCommenting}
 								class="{isCommenting
 									? 'cursor-default'
 									: 'cursor-pointer'} whitespace-nowrap bg-primary-400 text-white hover:bg-primary-500 hover:text-white dark:bg-primary-400 dark:hover:bg-primary-500"
@@ -234,8 +232,7 @@
 							</div>
 						</div>
 						<div>
-							<!-- TODO: issue -->
-							<!-- {#if commentData.author?.id === data.user.id}
+							{#if commentData.author?.id === data.user.id}
 								<div>
 									<Button color="none" class="!p-2">
 										<DotsVerticalOutline
@@ -255,7 +252,7 @@
 										</DropdownItem>
 									</Dropdown>
 								</div>
-							{/if} -->
+							{/if}
 						</div>
 					</div>
 				{/each}
