@@ -37,6 +37,7 @@
 	<title>글쓰기 • 대나무숲</title>
 </svelte:head>
 
+<h1 class="mb-10 text-2xl font-bold">bamboo board service dropped.</h1>
 <!-- TODO: bamboo was archived -->
 <!-- <div class="h-full w-full max-w-xl pt-3 lg:pt-5">
 	<form method="POST" use:enhance={submitFunction}>
