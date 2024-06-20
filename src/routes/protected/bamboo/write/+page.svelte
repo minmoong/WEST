@@ -37,7 +37,8 @@
 	<title>글쓰기 • 대나무숲</title>
 </svelte:head>
 
-<div class="h-full w-full max-w-xl pt-3 lg:pt-5">
+<!-- TODO: bamboo was archived -->
+<!-- <div class="h-full w-full max-w-xl pt-3 lg:pt-5">
 	<form method="POST" use:enhance={submitFunction}>
 		<h1 class="mb-10 text-2xl font-bold">글쓰기</h1>
 		<Select
@@ -70,4 +71,4 @@
 			{/if}
 		</Button>
 	</form>
-</div>
+</div> -->
