@@ -8,7 +8,6 @@ export const actions = {
 		const category = data.get('category')?.toString();
 		const title = data.get('title')?.toString();
 		let content = data.get('content')?.toString();
-		const anonymous = Boolean(data.get('anonymous'));
 
 		if (!category) {
 			return fail(400, { message: '카테고리를 입력해 주세요.' });
@@ -32,7 +31,6 @@ export const actions = {
 		try {
 			await prisma.post.create({
 				data: {
-					anonymous,
 					category,
 					grade: locals.user.grade,
 					title,

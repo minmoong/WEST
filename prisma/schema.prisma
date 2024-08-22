@@ -28,7 +28,6 @@ model Post {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
-  anonymous Boolean  @default(false)
   category  String
   grade     Int      @default(0)
   title     String
@@ -46,7 +45,6 @@ model DeletedPost {
   createdAt  DateTime
   deletedAt  DateTime @default(now())
 
-  anonymous  Boolean  @default(false)
   category   String
   title      String
   content    String
@@ -61,7 +59,6 @@ model Comment {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
-  anonymous Boolean  @default(false)
   content   String
 
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)

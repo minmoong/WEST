@@ -1,16 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
-	import {
-		Button,
-		ButtonGroup,
-		Checkbox,
-		Dropdown,
-		DropdownItem,
-		Hr,
-		Input,
-		Spinner
-	} from 'flowbite-svelte';
+	import { Button, ButtonGroup, Dropdown, DropdownItem, Hr, Input, Spinner } from 'flowbite-svelte';
 	import { DotsVerticalOutline, TrashBinSolid } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import { calculateElapsedTime, formatDatetime } from '$lib/utils/tools';
@@ -26,7 +17,6 @@
 
 	let comment: string = '';
 	let isCommenting = false;
-	let isChecked = true;
 
 	onMount(async () => {
 		if (postData) {
@@ -76,15 +66,15 @@
 		}
 	};
 
-	const submitFunction: SubmitFunction = ({ formData }) => {
+	const submitFunction: SubmitFunction = () => {
 		isCommenting = true;
 
 		// form 태그 밖에 checkbox가 있기 때문에
 		// submit시에 checkbox 수동으로 데이터를 추가해줘야 한다.
 		// checkbox를 form 태그 밖에 둔 이유는, submit시에 자동으로 checkbox가 비활성화되는 것을 피하기 위함임.
-		if (isChecked) {
-			formData.append('anonymous', 'on');
-		}
+		// if (isChecked) {
+		// 	formData.append('anonymous', 'on');
+		// }
 
 		return async ({ result, update }) => {
 			await update();
@@ -113,8 +103,7 @@
 		<!-- 제목 영역 -->
 		<div class="flex justify-between">
 			<div class="mb-4 text-xl font-bold">{postData.title}</div>
-			<!-- TODO: bamboo was archived -->
-			<!-- {#if data.user.id === postData.authorId}
+			{#if data.user.id === postData.authorId}
 				<div>
 					<Button color="none" class="!p-2">
 						<DotsVerticalOutline
@@ -134,7 +123,7 @@
 						</DropdownItem>
 					</Dropdown>
 				</div>
-			{/if} -->
+			{/if}
 		</div>
 		<!-- 내용 영역 -->
 		<div class="flex justify-between whitespace-nowrap">
@@ -145,11 +134,11 @@
 				>
 					{formatDatetime(postData.createdAt)}
 				</div>
-				{#if postData.anonymous || !postData.author?.username}
+				{#if !postData.author?.username}
 					<div
 						class="ml-2 overflow-hidden overflow-ellipsis before:mr-2 before:inline-block before:h-3 before:border before:border-slate-300 before:align-middle dark:before:border-slate-500"
 					>
-						{postData.author?.username ?? '(알 수 없음)'}
+						{'(알 수 없음)'}
 					</div>
 				{:else}
 					<a
@@ -185,11 +174,10 @@
 					>
 						<ButtonGroup class="mb-3 w-full">
 							<Input name="comment" placeholder="댓글 추가..." bind:value={comment} class="py-1" />
-							<!-- TODO: bamboo was archived - disabled={isCommenting} -->
 							<Button
 								type="submit"
 								color="primary"
-								disabled={true}
+								disabled={isCommenting}
 								class="{isCommenting
 									? 'cursor-default'
 									: 'cursor-pointer'} whitespace-nowrap bg-primary-400 text-white hover:bg-primary-500 hover:text-white dark:bg-primary-400 dark:hover:bg-primary-500"
@@ -202,7 +190,6 @@
 							</Button>
 						</ButtonGroup>
 					</form>
-					<Checkbox class="whitespace-nowrap" bind:checked={isChecked}>익명 댓글</Checkbox>
 				</div>
 			</div>
 			<!-- 댓글들 -->
@@ -210,7 +197,7 @@
 				{#each postData.comment as commentData}
 					<div class="flex justify-between">
 						<div class="flex">
-							{#if !commentData.anonymous && commentData.author?.id}
+							{#if commentData.author?.id}
 								<UserProfileAvatar class="mr-3" username={commentData.author.username} />
 							{:else}
 								<UserProfileAvatar
@@ -220,7 +207,7 @@
 							{/if}
 							<div>
 								<div class="flex text-sm">
-									{#if commentData.anonymous || !commentData.author?.username}
+									{#if !commentData.author?.username}
 										<div class="mr-2">{commentData.author?.username ?? '(알 수 없음)'}</div>
 									{:else}
 										<div class="mr-2">{commentData.author.username}</div>
@@ -234,8 +221,7 @@
 							</div>
 						</div>
 						<div>
-							<!-- TODO: bamboo was archived -->
-							<!-- {#if commentData.author?.id === data.user.id}
+							{#if commentData.author?.id === data.user.id}
 								<div>
 									<Button color="none" class="!p-2">
 										<DotsVerticalOutline
@@ -255,7 +241,7 @@
 										</DropdownItem>
 									</Dropdown>
 								</div>
-							{/if} -->
+							{/if}
 						</div>
 					</div>
 				{/each}
