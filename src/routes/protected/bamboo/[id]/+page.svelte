@@ -20,14 +20,31 @@
 
 	onMount(async () => {
 		if (postData) {
-			const requestData = { postId: postData.id };
-			const res = await fetch('/api/bamboo/increase-views', {
-				method: 'POST',
-				body: JSON.stringify(requestData)
-			});
-			const { views } = await res.json();
+			// 약간 주먹구구식으로 코딩하기;;
+			// db 코딩하기 귀찮아서 그냥 로컬에 저장해서 씀;;
+			let viewLists = window.localStorage.getItem('viewLists');
 
-			postData.views = views;
+			if (viewLists === null) {
+				window.localStorage.setItem('viewLists', '[]');
+				viewLists = '[]';
+			}
+
+			// 안 본 글이라면
+			if (!JSON.parse(viewLists).includes(postData.id)) {
+				const requestData = { postId: postData.id };
+				const res = await fetch('/api/bamboo/increase-views', {
+					method: 'POST',
+					body: JSON.stringify(requestData)
+				});
+				const { views } = await res.json();
+
+				postData.views = views;
+
+				let arr = JSON.parse(viewLists);
+				arr.push(postData.id);
+
+				window.localStorage.setItem('viewLists', JSON.stringify(arr));
+			}
 		}
 	});
 
