@@ -11,8 +11,8 @@ export const Sakura = function (this: any, element: HTMLDivElement) {
 		colors: [
 			{
 				// You can add multiple colors (chosen randomly) by adding elements to the array.
-				gradientColorStart: 'rgba(255, 183, 197, 0.9)', // Gradient color start (rgba).
-				gradientColorEnd: 'rgba(255, 197, 208, 0.9)', // Gradient color end (rgba).
+				gradientColorStart: 'rgba(234, 140, 47, 1)', // Gradient color start (rgba).
+				gradientColorEnd: 'rgba(234, 140, 47, 0.3)', // Gradient color end (rgba).
 				gradientColorDegree: 120 // Gradient degree angle.
 			}
 		]
