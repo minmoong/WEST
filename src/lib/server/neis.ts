@@ -49,14 +49,30 @@ export const getMeal = async (date: Date) => {
 	const params = {
 		MLSV_YMD: formatDate(date)
 	};
+
 	const data = await requestNeis('mealServiceDietInfo', params);
 
-	const [lunch, dinner] = data.map((d: any) =>
-		d.DDISH_NM.split('<br/>').map((m: string) => m.split(' ')[0])
-	);
+	const formatMealData = (mealData: any) => {
+		const meals = mealData.DDISH_NM.split('<br/>').map((m: string) => {
+			return {
+				meal: m.split(' ')[0],
+				allergy: m.split(' ')[1]
+			};
+		});
+
+		return {
+			meal: meals.map((m: any) => m.meal),
+			allergy: meals.map((m: any) => m.allergy),
+			kcal: mealData.CAL_INFO,
+			ntr: mealData.NTR_INFO.replace(/\s+:/g, ':').split('<br/>')
+		};
+	};
+
+	const lunchData = data.find((d: any) => d.MMEAL_SC_NM === '중식');
+	const dinnerData = data.find((d: any) => d.MMEAL_SC_NM === '석식');
 
 	return {
-		lunch: lunch ?? [],
-		dinner: dinner ?? []
+		lunch: lunchData ? formatMealData(lunchData) : { meal: [], kcal: '', ntr: '' },
+		dinner: dinnerData ? formatMealData(dinnerData) : { meal: [], kcal: '', ntr: '' }
 	};
 };

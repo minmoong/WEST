@@ -4,8 +4,11 @@
 -->
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { Spinner } from 'flowbite-svelte';
+	import { Spinner, Button, Modal } from 'flowbite-svelte';
 	import { formatDate, getRandomNumberInRange } from '$lib/utils/tools';
+
+	let showModalLunch = false,
+		showModalDinner = false;
 
 	const getMeal = async () => {
 		const params = new URLSearchParams({
@@ -14,9 +17,15 @@
 		const url = `/api/info/get-meal?${params.toString()}`;
 		const res = await fetch(url);
 
-		const meal = (await res.json()).meal;
+		const data = await res.json();
+		const mealData = data.meal;
 
-		return meal;
+		const meals = [
+			{ name: '중식', data: mealData.lunch },
+			{ name: '석식', data: mealData.dinner }
+		];
+
+		return meals;
 	};
 
 	const keywords = ['급식 메뉴 🍔', '엄준식 🎩', '맛도리(?)', '삶의 이유'];
@@ -31,28 +40,75 @@
 			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
 				<Spinner size="8" />
 			</div>
-		{:then meal}
+		{:then meals}
 			<div class="space-y-5" transition:fade>
-				<div>
-					<div class="mb-2 text-lg">중식🍴</div>
+				{#each meals as { name, data }}
 					<div>
-						{#each meal.lunch as data}
-							<div class="font-light">- {data}</div>
+						<div class="mb-2 text-lg">{name}🍴</div>
+						{#if data.meal.length !== 0}
+							<div class="mb-2">
+								{#each data.meal as m}
+									<div class="font-light">- {m}</div>
+								{/each}
+							</div>
+							<div>
+								<Button
+									size="xs"
+									color="light"
+									on:click={() => {
+										if (name === '중식') {
+											showModalLunch = true;
+										} else if (name === '석식') {
+											showModalDinner = true;
+										}
+									}}>자세히</Button
+								>
+
+								{#if name === '중식'}
+									<Modal title={`${name}🍴`} size="xs" bind:open={showModalLunch} outsideclose>
+										<div>
+											<div class="mb-2 text-sm font-normal">알러지 정보</div>
+											{#each data.meal as m, idx}
+												<div class="font-light">- {m} {data.allergy[idx]}</div>
+											{/each}
+										</div>
+										<div>
+											<div class="mb-2 text-sm font-normal">영양 정보</div>
+											{#each data.ntr as n}
+												<div class="font-light">- {n}</div>
+											{/each}
+										</div>
+										<div>
+											<div class="mb-2 text-sm font-normal">칼로리</div>
+											{data.kcal}
+										</div>
+									</Modal>
+								{:else if name === '석식'}
+									<Modal title={`${name}🍴`} size="xs" bind:open={showModalDinner} outsideclose>
+										<div>
+											<div class="mb-2 text-sm font-normal">알러지 정보</div>
+											{#each data.meal as m, idx}
+												<div class="font-light">- {m} {data.allergy[idx]}</div>
+											{/each}
+										</div>
+										<div>
+											<div class="mb-2 text-sm font-normal">영양 정보</div>
+											{#each data.ntr as n}
+												<div class="font-light">- {n}</div>
+											{/each}
+										</div>
+										<div>
+											<div class="mb-2 text-sm font-normal">칼로리</div>
+											{data.kcal}
+										</div>
+									</Modal>
+								{/if}
+							</div>
 						{:else}
-							<div class="text-center my-7">오늘은 중식이 없습니다.</div>
-						{/each}
+							<div class="my-7 text-center">오늘은 {name}이 없습니다.</div>
+						{/if}
 					</div>
-				</div>
-				<div>
-					<div class="mb-2 text-lg">석식🍴</div>
-					<div>
-						{#each meal.dinner as data}
-							<div class="font-light">- {data}</div>
-						{:else}
-							<div class="text-center my-7">오늘은 석식이 없습니다.</div>
-						{/each}
-					</div>
-				</div>
+				{/each}
 			</div>
 		{/await}
 	</div>
