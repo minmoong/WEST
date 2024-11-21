@@ -3,11 +3,11 @@
 	import { browser } from '$app/environment';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
-	// import { inject } from '@vercel/analytics';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { AutumnLeaves } from '$lib/components';
 	import { printLogo } from '$lib/utils/tools';
 
-	// inject({ mode: dev ? 'development' : 'production' });
+	injectAnalytics();
 
 	if (browser) {
 		printLogo();
