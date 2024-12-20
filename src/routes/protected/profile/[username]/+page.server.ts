@@ -47,6 +47,12 @@ export const actions = {
 				}
 			}
 
+			const regex = /[^a-zA-Z0-9_\uAC00-\uD7A3]/;
+
+			if (regex.test(editedUsername)) {
+				return fail(400, { message: '아이디에 특수문자를 포함할 수 없습니다.' });
+			}
+
 			// 프로필을 업데이트합니다.
 			await prisma.user.update({
 				where: { id: (event.locals.user as User).id },
