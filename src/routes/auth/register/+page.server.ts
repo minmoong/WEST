@@ -23,6 +23,10 @@ export const actions = {
 			return fail(400, { message: '아이디의 길이는 15자 이하여야 합니다.' });
 		}
 
+		if (/[^a-zA-Z0-9_\uAC00-\uD7A3]/.test(username)) {
+			return fail(400, { message: '아이디에 특수문자를 포함할 수 없습니다.' });
+		}
+
 		if (!password) {
 			return fail(400, { message: '비밀번호를 입력해 주세요.' });
 		}
