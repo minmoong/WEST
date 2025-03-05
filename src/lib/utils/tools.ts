@@ -14,6 +14,7 @@ export const isEmailFormat = (string: string) => {
  */
 export const getRoleFromEmail = (email: string): Role => {
 	const regex = [
+		/^25sdj[0-9]{3}@sdjhs\.djsch\.kr$/, // 25년도 기준 1학년
 		/^24sdj[0-9]{3}@sdjhs\.djsch\.kr$/, // 24년도 기준 1학년
 		/^23sdj[0-9]{3}@sdjhs\.djsch\.kr$/, // 24년도 기준 2학년
 		/sdj[0-9]{3}@sdjhs\.djsch\.kr$/, // 24년도 기준 3학년
