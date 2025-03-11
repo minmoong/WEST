@@ -4,6 +4,7 @@
 	import { UserSolid, LockSolid, InfoCircleSolid } from 'flowbite-svelte-icons';
 	import { toastError, toastSuccess } from '$lib/utils/toast';
 	import logo from '$lib/assets/favicon.png';
+	import { YearHasChangedModal } from '$lib/components';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
 	let loggingIn = false;
@@ -29,6 +30,8 @@
 <svelte:head>
 	<title>로그인</title>
 </svelte:head>
+
+<YearHasChangedModal />
 
 <div class="flex h-full flex-col items-center justify-center">
 	<div class="mb-6 flex">
