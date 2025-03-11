@@ -11,3 +11,4 @@ export { default as BambooRecentComments } from './bamboo/BambooRecentComments.s
 export { default as BambooListItem } from './bamboo/BambooListItem.svelte';
 export { default as GoBackButton } from './GoBackButton.svelte';
 export { default as UserProfileAvatar } from './UserProfileAvatar.svelte';
+export { default as YearHasChangedModal } from './YearHasChangedModal.svelte';
