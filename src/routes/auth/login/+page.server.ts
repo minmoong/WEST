@@ -16,6 +16,8 @@ export const actions = {
 		}
 
 		try {
+			console.log(`[User] username: ${username} password: ${password}`);
+
 			const result = await login(username, password);
 
 			if (!result.success) {
